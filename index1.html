@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<!-- saved from url=(0079)https://mypulse.netbase.com/1/pulse/viewers/widgets/custom/competitorPulse.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <!-- <meta charset="ISO-8859-1" /> -->
+        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Custom Pulse </title>
+        <!-- JS -->
+        <script type="text/javascript" src="./index_files/d3.v3.min.js"></script>
+        <script type="text/javascript" src="./index_files/twitter-text-1.9.4.min.js"></script>
+        <script type="text/javascript" src="./index_files/countUp.min.js"></script>
+        <script type="text/javascript" src="./index_files/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="./index_files/underscore.min.js"></script>
+        <script type="text/javascript" src="./index_files/moment.min.js"></script>
+        <script type="text/javascript" src="./index_files/jquery.ui.core.js"></script>
+        <script type="text/javascript" src="./index_files/jquery.ui.widget.js"></script>
+        <script type="text/javascript" src="./index_files/jquery.fiji.ticker.js"></script>
+        <script type="text/javascript" src="./index_files/jquery.browser.js"></script>
+        <script type="text/javascript" src="./index_files/widgets.js"></script>
+        <script type="text/javascript" src="./index_files/topojson.v1.min.js"></script>
+
+        <script src="./index_files/main.js"></script>
+        <!--
+        <link href="../../../lib/foundation-5.0.2/css/foundation.min.css" rel="stylesheet">
+        -->
+        <link href="./lib/foundation-5.0.2/css/foundation.css" rel="stylesheet">
+	    <link href="./lib/style.css" rel="stylesheet">
+        <link href="./lib/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="../../../assets/js/html5shiv.js"></script>
+          <script src="../../../assets/js/respond.min.js"></script>
+        <![endif]-->
+        <style type="text/css">
+            .spinner {
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin:auto;
+              width: 30px;
+              height: 30px;
+              background: #1abc9c;
+              border-radius: 100%;
+              box-shadow: 
+                -16px 28px 0px #d35400,
+                18px 28px 0px #3498db;
+              /* spin that shit */
+              -webkit-animation:spin .3s linear infinite;
+            }
+
+            @-webkit-keyframes spin {
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+            @keyframes spin {
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+
+            .horizontalGrid {
+                /* stroke:white; */
+                stroke: #1f1f1f;
+                stroke-width:2px;
+                /* stroke-width:3px; */
+            }
+            #gridlineID_0 {
+                stroke:transparent;
+            }
+
+            /* map stuff */
+            .subunit-boundary {
+                fill: none;
+                stroke: #1f1f1f;
+            }
+
+            .subunit-label {
+                fill: #777;
+                fill-opacity: .5;
+                font-size: 20px;
+                font-weight: 300;
+                text-anchor: middle;
+            }
+
+            a.displayNameLink {
+                text-decoration:none;
+                color:lightgrey;
+            }
+            a.timeagoTweetText {
+                /* text-decoration:none; */
+                color:lightgrey;
+            }
+            a.twitterUsername, a.tweet-url.username {
+                color:lightgrey;
+            }
+            a.displayNameLink:hover, a.timeagoTweetText:hover, a.twitterUsername:hover, a.tweet-url.username:hover {
+                color: #7fdbff; }
+
+            .iconHoverDiv {
+                position:absolute;
+                bottom:0px;
+                left:-64px;
+                /* top:-30px; */
+            }
+            .allIcons {
+                /* display:none; */
+                z-index: 30;
+                /* height:20px; */
+            }
+            .center-header-logo { 
+                margin-top: 20px;
+                margin-bottom: 10px;
+
+                display:block;
+                margin-left: auto;
+                margin-right: auto;
+                /* height:80px; */
+                height:50px;
+            }
+            /*
+            .area.above {
+                fill: #83c94c;
+            }
+            .area.below {
+                fill: rgb(252,141,89);
+            }
+            */
+            .vis-title-container {
+                margin-bottom:5px;
+            }
+            .total-main-number-container {
+                margin-top:0px;
+            }
+            .total-main-number {
+                line-height: 1;
+            }
+            .row.scrunch-width { 
+                width: 80%; 
+                max-width: 80%; 
+            }
+            .vis-header {
+                font-size: 88%;
+            }
+            .vis-header-time {
+                font-size: 88%;
+            }
+
+        </style>
+    <meta class="foundation-mq-small"><meta class="foundation-mq-medium"><meta class="foundation-mq-large"><meta class="foundation-mq-xlarge"><meta class="foundation-mq-xxlarge"><style></style><style>img.chromoji { width:1em !important; height:1em !important; }.chromoji-font, #chromoji-font { font-size:1em !important; }</style><style>@-webkit-keyframes popjotwkbysdcxrflknfhkgoorqttihjoqai {50% {-webkit-transform:scale(1.2);}100% {-webkit-transform:scale(1);}}@keyframes popjotwkbysdcxrflknfhkgoorqttihjoqai {50% {-webkit-transform:scale(1.2);transform:scale(1.2);}100% {-webkit-transform:scale(1);transform:scale(1);}}#jotwkbysdcxrflknfhkgoorqttihjoqai{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;border:solid 2px #fff !important;box-sizing:content-box !important;color:#fff !important;display:block !important;height:auto !important;margin:0 !important;opacity:0.9 !important;padding:7px 10px !important;position:fixed !important;visibility:visible !important;width:auto !important;z-index:2147483647 !important;-webkit-border-radius:5px !important;-webkit-box-shadow:0px 0px 20px #000 !important;-webkit-box-sizing:content-box !important;}.jotwkbysdcxrflknfhkgoorqttihjoqai-blocked{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;color:#AAA !important;display:inline !important;text-decoration:line-through !important;}#jotwkbysdcxrflknfhkgoorqttihjoqai br{display:block !important;padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;}#jotwkbysdcxrflknfhkgoorqttihjoqai span{background:transparent !important;padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;}#jotwkbysdcxrflknfhkgoorqttihjoqai div{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;border:0 !important;margin:0 !important;padding:0 !important;width:auto !important;letter-spacing:normal !important;font:13px Arial,Helvetica !important;text-align:left !important;text-shadow:none !important;text-transform:none !important;word-spacing:normal !important;}#jotwkbysdcxrflknfhkgoorqttihjoqai a{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;font-weight:normal !important;background:none !important;text-decoration:underline !important;color:#fff !important;}a#jotwkbysdcxrflknfhkgoorqttihjoqai-gear{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;text-decoration:none !important;position:absolute !important;display:none !important;font-size:20px !important;width:20px !important;height:20px !important;line-height:20px !important;text-align:center !important;background-color:rgba(255,255,255,.8) !important;background-image:url(chrome-extension://mlomiejdfkolichcflejclcbmpeaniij/data/images/gear.svg) !important;background-size:16px 16px !important;background-position:center center !important;background-repeat:no-repeat !important;text-decoration:none !important;}a#jotwkbysdcxrflknfhkgoorqttihjoqai-gear:hover{-webkit-animation-name:popjotwkbysdcxrflknfhkgoorqttihjoqai !important;animation-name:popjotwkbysdcxrflknfhkgoorqttihjoqai !important;-webkit-animation-duration:0.3s !important;animation-duration:0.3s !important;}#jotwkbysdcxrflknfhkgoorqttihjoqai:hover #jotwkbysdcxrflknfhkgoorqttihjoqai-gear{text-decoration:none !important;display:inline-block !important;}@media print{#jotwkbysdcxrflknfhkgoorqttihjoqai{display:none !important;}}</style></head>
+    <body data-twttr-rendered="true">
+        <script type="text/javascript" src="./index_files/foundation.min.js"></script>
+        <script type="text/javascript" src="./index_files/foundation.reveal.js"></script>
+    
+        <div class="row full-width">            
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <img class="center-header-logo" alt="logo" src="./index_files/arianagrande.jpg" />
+                <div class="vis-title-container"><span class="vis-header"> Emerging Terms</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="ag_emerging"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <img class="center-header-logo" alt="logo" src="./index_files/nickiminaj.jpg" />
+                <div class="vis-title-container"><span class="vis-header"> Emerging Terms</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="nm_emerging"></div>
+            </div>
+            
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <!-- <img class="center-header-logo" alt="logo" src="./lib/image005.png" /> -->
+                <img class="center-header-logo" alt="logo" src="./index_files/drake.jpg" />
+                <div class="vis-title-container"><span class="vis-header"> Emerging Terms</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="drake_emerging"></div>
+            </div>
+            
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <img class="center-header-logo" alt="logo" src="./index_files/lukebryan.jpg" />
+                <div class="vis-title-container"><span class="vis-header"> Emerging Terms</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="target_emerging"></div>
+            </div>
+            
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <!-- <img class="center-header-logo" alt="logo" src="./lib/image004.png" /> -->
+                <img class="center-header-logo" alt="logo" src="./index_files/lady.jpg" />
+                <div class="vis-title-container"><span class="vis-header"> Emerging Terms</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="toysrus_emerging"></div>
+            </div>  
+        </div>        
+        
+        <div class="row full-width">    
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Mentions</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="ag_mentions"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Mentions</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="nm_mentions"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Mentions</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="drake_mentions"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Mentions</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="target_mentions"></div>
+            </div>
+            
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Mentions</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="toysrus_mentions"></div>
+            </div>
+        </div>
+        <!--
+        <div class="row full-width">    
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Impressions </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="walmart_impressions"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Impressions </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="amazon_impressions"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Impressions </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="bestbuy_impressions"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Impressions </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="target_impressions"></div>
+            </div>
+            
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Impressions </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="toysrus_impressions"></div>
+            </div>
+        </div>
+        -->
+        <div class="row full-width">    
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Net Sentiment </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="ag_sentiment"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Net Sentiment </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="nm_sentiment"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Net Sentiment </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="drake_sentiment"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Net Sentiment </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="target_sentiment"></div>
+            </div>
+            
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Net Sentiment </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="toysrus_sentiment"></div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                emergingTopics.init("ag_emerging", "ec0f606e-276d-4c7e-80c3-4807989422ff");
+                mentionsWidget.init("ag_mentions", "ec0f606e-276d-4c7e-80c3-4807989422ff");
+                //impressionsWidget.init("walmart_impressions", "b0f2bb9f-78c5-4f7e-a714-4b3c5045eec6");
+                netSentiment.init("ag_sentiment", "ec0f606e-276d-4c7e-80c3-4807989422ff");
+                
+                emergingTopics.init("nm_emerging", "f41f70fa-23d2-48b9-94c5-828a4881e87c");
+                mentionsWidget.init("nm_mentions", "f41f70fa-23d2-48b9-94c5-828a4881e87c");
+                //impressionsWidget.init("amazon_impressions", "26a92524-6c5f-417e-a746-86e78278b51f");
+                netSentiment.init("nm_sentiment", "f41f70fa-23d2-48b9-94c5-828a4881e87c");
+
+                emergingTopics.init("drake_emerging", "9e74c475-8377-45e4-9277-0bbaecbff91b");
+                mentionsWidget.init("drake_mentions", "9e74c475-8377-45e4-9277-0bbaecbff91b");
+                //impressionsWidget.init("bestbuy_impressions", "2f458020-6ee2-45e9-94c8-a6f37a87e437");
+                netSentiment.init("drake_sentiment", "9e74c475-8377-45e4-9277-0bbaecbff91b");
+                
+                emergingTopics.init("target_emerging", "df6ea4c5-127a-4608-881a-30e7abfd9874");
+                mentionsWidget.init("target_mentions", "df6ea4c5-127a-4608-881a-30e7abfd9874");
+                //impressionsWidget.init("target_impressions", "e60778aa-e9f1-4f98-bed5-cd69acb7fc19");
+                netSentiment.init("target_sentiment", "df6ea4c5-127a-4608-881a-30e7abfd9874");
+
+                emergingTopics.init("toysrus_emerging", "e5553eed-a61d-41b2-9854-069db1f263fc");
+                mentionsWidget.init("toysrus_mentions", "e5553eed-a61d-41b2-9854-069db1f263fc");
+                //impressionsWidget.init("toysrus_impressions", "706f76c4-a4a9-4639-9591-af8305f1c15a");
+                netSentiment.init("toysrus_sentiment", "e5553eed-a61d-41b2-9854-069db1f263fc"); 
+                /*
+                emergingTopics.init("netflix_emerging", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                mentionsWidget.init("netflix_mentions", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                impressionsWidget.init("netflix_impressions", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                netSentiment.init("netflix_sentiment", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                
+                emergingTopics.init("eleicoes_emerging", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+                mentionsWidget.init("eleicoes_mentions", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+                impressionsWidget.init("eleicoes_impressions", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+                netSentiment.init("eleicoes_sentiment", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+
+                emergingTopics.init("netflix_emerging_2", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                mentionsWidget.init("netflix_mentions_2", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                impressionsWidget.init("netflix_impressions_2", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                netSentiment.init("netflix_sentiment_2", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                
+                emergingTopics.init("eleicoes_emerging_2", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+                mentionsWidget.init("eleicoes_mentions_2", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+                impressionsWidget.init("eleicoes_impressions_2", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+                netSentiment.init("eleicoes_sentiment_2", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+
+                emergingTopics.init("netflix_emerging_3", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                mentionsWidget.init("netflix_mentions_3", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                impressionsWidget.init("netflix_impressions_3", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                netSentiment.init("netflix_sentiment_3", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba"); 
+                */
+            });
+        </script>        
+        
+    
+</body></html>

@@ -1,0 +1,989 @@
+.areaNEG {
+          fill: #FF4136;
+        }
+        .areaPOS {
+          fill: #29b739;
+        }
+        .area.above {
+            /* fill: rgb(145,207,96); 
+            fill: rgb(252,141,89); */
+            fill: #83c94c;
+        }
+
+        .area.below {
+            fill: rgb(252,141,89);
+            /* fill: transparent; */
+            /* fill: rgb(145,207,96);*/
+            
+        }
+.horizontalGrid {
+        /* stroke:white; */
+        stroke: #1f1f1f;
+        stroke-width:2px;
+        /* stroke-width:3px; */
+      }
+      #gridlineID_0 {
+          stroke:transparent;
+      }
+body {
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", 
+		Helvetica, Arial, "Lucida Grande", sans-serif; 
+   	font-weight: 300;
+   	/* background: #696969; */
+   	background: #1f1f1f;
+}
+.row.full-width { 
+	width: 100%; 
+	max-width: 100%; 
+}
+/* Prettier Links */
+a {
+  -webkit-transition: color 0.3s ease-in-out;
+  transition: color 0.3s ease-in-out; }
+
+a:link {
+  /* color: #0074d9; } */
+  color: lightgrey; }
+
+a:visited {
+  color: #b10dc9; }
+
+a:hover {
+  color: #7fdbff; }
+
+a:active {
+  color: #ff851b; }
+
+/*
+--------------
+WTF button
+--------------
+*/
+.btn.btn-inverse-outline:hover {
+	/*
+  	border: 1px solid #fff;
+	color: #fff;
+  	*/
+  	border: 1px solid #FF4136;
+	color: #FF4136;
+}
+
+.btn {
+  	/* margin: 22px auto 0; WHAT WAS CENTERING THE BLOCK */
+	/* max-width: 240px; */
+	max-width: 100px;
+  
+  	border: 1px solid #787878;
+	color: #787878;
+  
+	font-family: "Gotham SSm A","Gotham SSm B",Helvetica,Arial,sans-serif;
+	font-weight: 500;
+	text-transform: uppercase;
+	text-decoration: none !important;
+	-webkit-transition: all 0.3s;
+	transition: all 0.3s;
+	  text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.btn-block {
+	display: block;
+	width: 100%;
+	padding-left: 0;
+	padding-right: 0;
+	}
+.btn-lg, .btn-group-lg>.btn {
+	/* padding: 16px 16px; */
+	padding: 5px 5px;
+	font-size: 15px;
+	/* line-height: 1.33; MAKES IT A BIT TALLER */
+	border-radius: 2px;
+}
+.btn.btn-inverse-outline {
+	color:#787878;
+	float:right;
+	/* margin-top:10px; */
+	margin-top:43px;
+}
+
+/*
+-----------------------------------------
+general
+-----------------------------------------
+*/
+
+#main-header {
+	margin-top: 20px;
+}
+.left-header-logo {
+	height: 80px; 
+	margin-top: -10px;
+}
+.right-header-logo {
+	/* height: 25px; */
+	/* margin-top:20px; */
+	height: 80px; 
+	margin-top: -10px;
+	float: right;
+}
+.main-title-container {
+	margin-bottom: 10px;
+}
+.main-title {
+	/* color: #1d2222; */
+	font-size: 150%;
+	color: white;
+	border: 0;
+	/* padding: 24px 20px; */
+	/* old: width: 98%; */
+	/* width: 300px; 
+	text-align: center; */
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	/* font-size: 15px; */
+	text-decoration: none;
+	font-weight: 600;
+	font-family: proxima-nova,sans-serif;
+	float: right;
+	padding-top: 20px;
+	/* background: url(https://a56b4a623221200f563d-147031ce8b47c2ab8d2b96f09f18fc97
+		.ssl.cf1.rackcdn.com/dark-lines-bg.png); */
+/*
+    text-align:center;
+    border:1px solid silver;
+    display: table-cell; // this says treat this element like a table cell
+    vertical-align:middle; //now we can center vertically like in a TD
+*/
+}
+.main-title-two-logos {
+	font-size: 150%;
+	color: white;
+	/* padding: 24px 20px; */
+	/* old: width: 98%; */
+	/* width: 300px; 
+	text-align: center; */
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	/* font-size: 15px; */
+	text-decoration: none;
+	font-weight: 600;
+	font-family: proxima-nova,sans-serif;
+	/* float: right; */
+	padding-top: 25px;
+}
+.miniNetbaseLogo {
+	height:40px;
+	margin-top:-3px;
+}
+
+/*
+-----------------------------------------
+totals section
+-----------------------------------------
+*/
+
+.vis-title-container {
+	margin-top: 15px;
+	margin-bottom: 20px;
+	/* border-top: 5px solid #434343; */
+	border-top: 5px solid #e0e0e0; 
+}
+.vis-header {
+	/* font-size: 11px; */
+	font-size: 100%;
+	line-height: 20px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	/* color: #434343; */
+	color: #f5f5f5;
+	/* font-family: proxima-nova,sans-serif; */
+	font-weight: 600;
+}
+.vis-header-time {
+	font-size: 100%;
+	color: #848484;
+	line-height: 20px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	font-weight: 600;
+	/* color: #434343; */
+	/* font-family: proxima-nova,sans-serif; */
+	}
+.avg-header {
+	/* font-size: 11px; */
+	/*font-size: 120%; */
+	/* line-height: 20px; 
+	letter-spacing: 1px; */
+	/* text-transform: uppercase; */
+	/* color: #434343; */
+	/* color: #f5f5f5; */
+	/* font-family: proxima-nova,sans-serif; */
+	/* font-weight: 600; */
+	/* float: right; */
+	font-weight: bold;
+	line-height: 1.1;
+	padding-top: 20px;
+	color: #848484;
+	padding-right:1px;
+}
+.total-main-number-container {
+	margin-top: 4px;
+	margin-bottom: 11px;
+}
+.total-main-number {
+	font-size: 360%;
+	/*font-size: 5.9vw;*/
+	font-weight: bold;
+	color: white;
+	line-height: 1.1;
+	padding-top: 20px;
+}
+/*
+#impressionsTotal {
+	font-size: 360%;
+	font-weight: bold;
+	color: white;
+	line-height: 1.1;
+	padding-top: 20px;
+}
+*/
+.average-container {
+	margin-bottom: 3px;
+}
+.avg-header {
+	color:white;
+}
+.average-number {
+	font-size: 120%;
+	font-weight: bold;
+	color: #848484;
+	line-height: 1.1;
+	padding-top: 20px;
+}
+.sentiment-explanation-label {
+	font-size: 75%;
+	line-height: 0px;
+	letter-spacing: 1px;
+	color: #5e5e5e;
+	font-weight: 600;
+}
+/*
+.average-sub-label {
+	font-size: 70%;
+	line-height: 15px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	color: #848484;
+	font-weight: 600;
+}
+*/
+
+/* banded chart */
+.area {
+    /*fill:#373737;*/
+    fill:#848484;
+    opacity: .9;
+}
+.line {
+    fill: none;
+    /* stroke: #0074D9; */
+    stroke: white;
+    stroke-width: 1px; 
+}
+
+/* sparkline chart */
+.sparkline {
+  	fill: none;
+  	stroke: steelblue;
+  	stroke-width: 1px;
+}
+.averageline {
+  	fill: none;
+  	stroke: #848484;
+  	stroke-width: .5px;
+  	stroke-opacity: 0.5;
+}
+.yaxis {
+  	fill: none;
+  	stroke: #848484;
+  	stroke-width: .5px;
+  	stroke-opacity: 0.4;
+}
+.sparklineTimeLabel {
+	font-size: 60%;
+	line-height: 0px;
+	letter-spacing: 1px;
+	color: #5e5e5e;
+	font-weight: 600;
+}
+#avgDiffMentionPercentSign, #avgDiffImprPercentSign, #avgDiffSentimentPercentSign, #avgprefixMentionsSymbolSpan, #avgprefixImprSymbolSpan {
+	margin-left:-3px;
+}
+
+/*
+-----------------------------------------
+general
+-----------------------------------------
+*/
+
+.bar {
+	/* fill:steelblue; */
+}
+.name {
+	fill: white;
+}
+.value {
+	/* fill: #848484; */
+	fill: #434343;
+	font-size:90%;
+}
+#footerNetbaseImg {
+	height:15px;
+	margin-top: 10px;
+	margin-bottom: 7px;
+}
+hr {
+	border-color: #848484;
+	margin:0.75rem 0 0.75rem;
+}
+
+/*
+-----------------------------------------
+bars
+-----------------------------------------
+*/
+
+#phrase0, .phrase0 {
+	/* fill: #39CCCC; */
+	fill: #81565A;
+	background-color: #81565A;
+}
+#phrase0, .phrase0 {
+	/* fill: #39CCCC; */
+	fill: #81565A;
+	background-color: #81565A;
+}
+#phrase1, .phrase1 {
+	/* fill: #3D9970; */
+	fill: #3B6C51;
+	background-color: #3B6C51;
+}
+#phrase2, .phrase2 {
+	/* fill: #2ECC40; */
+	fill: #51431D;
+	background-color: #51431D;
+}
+#phrase3, .phrase3 {
+	/* fill: #01FF70; */
+	fill: #516280;
+	background-color: #516280;
+}
+#phrase4, .phrase4 {
+	/* fill: #FFDC00; */
+	fill: #504158;
+	background-color: #504158;
+}
+#phrase5, .phrase5 {
+	/* fill: #FF851B; */
+	fill: #8E523A;
+	background-color: #8E523A;
+}
+#phrase6, .phrase6 {
+	/* fill: #FF4136; */
+	fill: #5B6832;
+	background-color: #5B6832;
+}
+#phrase7, .phrase7 {
+	/* fill: #85144B; */
+	fill: #355F61;
+	background-color: #355F61;
+}
+#phrase8, .phrase8 {
+	/* fill: #F012BE; */
+	fill: #364A32;
+	background-color: #364A32;
+}
+#phrase9, .phrase9 {
+	/*fill: #B10DC9; */
+	fill: #625764;
+	background-color: #625764;
+}
+#phrase10, .phrase10 {
+	/* fill: steelblue; */
+	fill: #865471;
+	background-color: #865471;
+}
+#phrase11, .phrase11 {
+	/* fill: steelblue; */
+	fill: #944B4E;
+	background-color: #944B4E;
+}
+#phrase12, .phrase12 {
+	/* fill: steelblue; */
+	fill: #4E3829;
+	background-color: #4E3829;
+}
+#phrase13, .phrase13 {
+	/* fill: steelblue; */
+	fill: #7B5E36;
+	background-color: #7B5E36;
+}
+#phrase14, .phrase14 {
+	/* fill: steelblue; */
+	fill: #62373A;
+	background-color: #62373A;
+}
+
+/* round corners of spans in stream */
+.phrase0, .phrase0, .phrase1, .phrase2, .phrase3, .phrase4, .phrase5, .phrase6, .phrase7, .phrase8, .phrase9, .phrase10, .phrase11, .phrase12, .phrase13, .phrase14 {
+	-moz-border-radius: 3px; 
+ 	-webkit-border-radius: 3px;
+  	border-radius: 3px;
+}
+
+/*
+-----------------------------------------
+streaming posts
+-----------------------------------------
+*/
+
+#stream-header {
+	margin-bottom:14px;
+}
+#tweetContainer {
+	margin-left: -17px;
+	height: 915px; 
+	overflow: hidden;
+}
+.news-container {
+	/* margin-left: -17px!important; */
+	/* width:100%;
+    height:100%; */
+}
+.tweetdiv {
+    /* border: 1px solid grey; */
+    /* border-bottom: 0.5px solid #434343; */
+    border-top: 1px solid #434343;
+            /* border-right: 2px solid black; */
+    /* width: 500px; */
+            /* padding-right: 5px; */
+    line-height:1.2!important;
+}
+/*
+#id0 {
+    border-top: 1px solid #2c2c2c; 
+}
+*/
+/* need to make .pictureDiv and .containerDiv adjacent */
+.pictureDiv {
+    position: relative;
+    /* background-color: red; */
+    width: 50px;
+    float: left;
+    padding-left: 2px;
+    padding-top: 8px;
+}
+.containerDiv {
+    position: relative;
+    /* text-align: left; */
+    /* background-color: yellow; */
+    margin-left: 60px;
+    padding-top: 8px;
+}
+
+/* rest of work, styling */
+.tweetdiv .picture {
+    border:1px solid #;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 10px;  
+}
+.displayNameLink {
+    text-decoration:none;
+    color:lightgrey;
+}
+.tweetdiv .displayname {
+    /* float: left; */
+    font-size: 14px;
+    font-weight: bold;
+    color:lightgrey;
+}
+.tweetdiv .username {
+    /* float: left; */
+    font-size: 14px;
+    font-weight: normal;
+    color: #999;
+    padding-left: 3px;
+    color: grey;
+}
+/*
+.tweetdiv .date:before { 
+    content: '\a0\b7\a0'; */ /* \b7 is a middot, \a0 is a space */
+/*
+}
+.tweetdiv .date {
+    font-size: 14px;
+    font-weight: normal;
+    color: #999;
+    color: grey;
+    padding-top: 5px;
+}
+*/
+.containerDiv .text {
+    /* clear: left; */
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.2!important;
+    color:lightgrey;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    /* display: block;
+    margin-top: 7px; */
+
+}
+.footerTextDiv {
+	margin-bottom:10px;
+	/* padding-bottom: 5px; */
+}
+.tweetdiv .locationtext {
+    font-size: 14px;
+    color:grey;
+    display: inline-block;
+    vertical-align: text-top;
+    vertical-align: top;
+}
+.tweetdiv .followerCountText {
+    font-size: 14px;
+    color:grey;
+    display: inline-block;
+    float: right;
+}
+#tweet-stream li {
+	list-style: none;
+}
+.streamImage {
+	border-radius:150px;
+}
+
+/* Temporary stream fixes for Twitter compliance */
+#stateName {
+	padding-top: 2px;
+	padding-bottom: 8px;
+}
+
+/* Retweeted label on bottom of tweet */
+.retweetedByText {
+	color: #848484;
+	font-size: 14px;
+	margin-bottom: 8px;
+	margin-top: -9px;
+}
+a.retweetedByTextUrl:link {
+	color: #848484;
+}
+a.retweetedByTextUrl:hover {
+	color: #7fdbff;
+}
+
+/*
+#shortTermSecondaryFooter{
+	margin-bottom: -5px;
+} */
+
+/* profanity checkbox css below */ 
+.blacklisted {
+	/*
+  	color:#848484;
+  	background:#848484;
+  	*/ 
+  	color:#454545;
+  	background:#454545;
+
+  	-moz-border-radius: 3px; 
+ 	-webkit-border-radius: 3px;
+  	border-radius: 3px;
+}
+.blacklisted:hover {
+  	color:lightgrey;
+  	background:#848484;
+
+  	-moz-border-radius: 3px; 
+ 	-webkit-border-radius: 3px;
+  	border-radius: 3px;
+}
+.toggleButtonsContainer {
+	float: right;
+}
+.entireStream #stream-header .toggleButtonsContainer {
+	visibility: hidden;
+	-webkit-transition:0.5s;
+	opacity:0;
+} 
+.entireStream:hover #stream-header .toggleButtonsContainer {
+	visibility: visible;
+	-webkit-transition:0.5s;
+	opacity:1;
+}
+/* input.swearingCheckbox:checked #tweet-stream li { 
+	background: yellow; THIS MAY NOT EVEN MATTER
+	*/
+/*
+input.swearingCheckbox:checked span.blacklisted {	
+	background-color: #1f1f1f;
+}
+.profanityToggleDiv {
+	border-right: 3px solid #e0e0e0; 
+	background: red;
+}
+*/
+.profanityToggleImg {
+	margin-top: 4px;
+	margin-left:3px;
+	float: right;
+	width: 60%;
+    height: auto;
+}
+.swearingCheckbox {
+	float: right;
+	margin-top: 7px!important;
+}
+
+/*
+-----------------------------------------
+geo section
+-----------------------------------------
+*/
+#states path {
+  	/* fill: #ccc; */
+  	/* stroke: #fff; */
+  	/* stroke: #848484; */
+  	stroke: #2d2d2d;
+	stroke-width: 1.5px;
+}
+.states-title-container {
+	margin-top: 15px;
+	margin-bottom: 20px;
+	/* border-top: 5px solid #434343; */
+}
+.states-header {
+	/* font-size: 11px; */
+	font-size: 80%;
+	line-height: 20px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	/* color: #434343; */
+	color: #f5f5f5;
+	/* font-family: proxima-nova,sans-serif; */
+	font-weight: 600;
+	margin-bottom: 30px;
+}
+.states-mentions {
+	/* font-size: 11px; */
+	font-size: 80%;
+	/* line-height: 20px;
+	letter-spacing: 1px; */
+	/* text-transform: uppercase; */
+	/* color: #434343; */
+	color: #848484;
+	/* font-family: proxima-nova,sans-serif; */
+	font-weight: 600; 
+	margin-bottom: 30px;
+}
+.states-main-number {
+	font-size: 300%;
+	font-weight: bold;
+	color: white;
+	line-height: 1.1;
+	padding-top: 20px;
+}
+.state-sparkline {
+	margin-top: 10px;
+
+}
+.legend text {
+	fill: #848484;
+	font-size: 0.8em;
+}
+#legendLabel {
+	font-size: 0.8em;
+	color: #848484;
+}
+
+/*
+-----------------------------------------
+news ticker
+-----------------------------------------
+*/
+#header {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+/* @media only screen and (min-width: 40.063em) and (max-width: 64em) { */
+@media only screen and (min-width: 0em) and (max-width: 64em) { 
+	/* min-width 641px and max-width 1024px, use when QAing tablet-only issues */
+	/* main fix is the avg text for sparklines, too much space between avg number and next row of visuals */
+	.average-label {
+		font-size: 50%;
+		text-transform: uppercase;
+		/* color: #434343; */
+		color: #848484;
+		/* font-family: proxima-nova,sans-serif; */
+		font-weight: 600;
+	}
+	.average-sub-label {
+		font-size: 20%;
+		text-transform: uppercase;
+		/* color: #434343; */
+		color: #848484;
+		/* font-family: proxima-nova,sans-serif; */
+		/* margin-top: -15px;
+		padding-top: -15px; */
+	}
+	.vis-header {
+		font-size: 93%;
+	}
+	.vis-header-time {
+		font-size: 9px;
+		color: white;
+		/* line-height: 20px;
+		letter-spacing: .8px; 
+		text-transform: uppercase; 
+		font-weight: 600; */
+		/* color: #434343; */
+		/* font-family: proxima-nova,sans-serif; */
+	}
+	#stateVisDiv {
+		margin-top: -7px;
+	}
+	#barVisDiv {
+		margin-top: -7px;
+	}
+	.containerDiv .text {
+    /* clear: left; */
+    	font-size: 12px;
+
+}
+	.tweetdiv .locationtext {
+	    font-size: 12px;
+	}
+} 
+
+@media only screen and (min-width: 64.1em) and (max-width: 90.062em) { 
+	/* should be my computer */
+	.average-label {
+		font-size: 90%;
+		line-height: 15px;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		/* color: #434343; */
+		color: #848484;
+		/* font-family: proxima-nova,sans-serif; */
+		font-weight: 600;
+	}
+	.average-sub-label {
+		font-size: 70%;
+		line-height: 15px;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		/* color: #434343; */
+		color: #848484;
+		/* font-family: proxima-nova,sans-serif; */
+		font-weight: 600;
+	}
+} 
+
+/* @media only screen and (min-width: 90.063em) { */
+@media only screen and (min-width: 1812px) {
+	/* min-width 1441px, xlarge screens ( is this my monitor size? ) */
+	.main-title {
+		font-size: 160%;
+	}
+	.average-label {
+		font-size: 100%;
+		line-height: 15px;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		/* color: #434343; */
+		color: #848484;
+		/* font-family: proxima-nova,sans-serif; */
+		font-weight: 800;
+	}
+	.average-sub-label {
+		font-size: 100%;
+		line-height: 20px;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+		/* color: #434343; */
+		color: #848484;
+		/* font-family: proxima-nova,sans-serif; */
+		font-weight: 800;
+		padding-top: 20px;
+	}
+	.vis-header, .vis-header-time {
+ 		font-weight: 4000;
+ 		font-size: 152%;
+ 		/* color:red; */
+ 		line-height: 125%;
+ 		font-family: proxima-nova,sans-serif;
+ 	}
+ 	.avg-header {
+ 		font-size: 135%;
+ 	}
+
+ 	.pictureDiv {
+	    padding-left: 2px;
+	    padding-top: 13px;
+	}
+	.containerDiv {
+	    padding-top: 13px;
+	}
+	.containerDiv .text {
+	    /* clear: left; */
+	    font-size: 16px;
+	    font-weight: normal;
+	    line-height: 1.2!important;
+	    color:lightgrey;
+	    padding-bottom: 5px;
+	    padding-right: 5px;
+	    padding-top: 5px;
+	    /* display: block;
+	    margin-top: 7px; */
+
+	}
+	.tweetdiv .locationtext {
+	    font-size: 16px;
+	    margin-bottom: 13px;
+	}
+	.tweetdiv .displayname {
+	    /* float: left; */
+	    font-size: 16px;
+	}
+	.tweetdiv .username {
+	    /* float: left; */
+	    font-size: 16px;
+	    padding-left: 4px;
+	}
+	
+} 
+
+            .areaNEG {
+              fill: #FF4136;
+            }
+            .areaPOS {
+              fill: #29b739;
+            }
+            .area.above {
+                fill: #83c94c;
+            }
+
+            .area.below {
+                fill: rgb(252,141,89);
+                
+            }
+
+            .spinner {
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin:auto;
+              width: 30px;
+              height: 30px;
+              background: #1abc9c;
+              border-radius: 100%;
+              box-shadow: 
+                -16px 28px 0px #d35400,
+                18px 28px 0px #3498db;
+              /* spin that shit */
+              -webkit-animation:spin .3s linear infinite;
+            }
+
+            @-webkit-keyframes spin {
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+            @keyframes spin {
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+
+            .horizontalGrid {
+                /* stroke:white; */
+                stroke: #1f1f1f;
+                stroke-width:2px;
+                /* stroke-width:3px; */
+            }
+            #gridlineID_0 {
+                stroke:transparent;
+            }
+
+            /* map stuff */
+            .subunit-boundary {
+                fill: none;
+                stroke: #1f1f1f;
+            }
+
+            .subunit-label {
+                fill: #777;
+                fill-opacity: .5;
+                font-size: 20px;
+                font-weight: 300;
+                text-anchor: middle;
+            }
+
+            a.displayNameLink {
+                text-decoration:none;
+                color:lightgrey;
+            }
+            a.timeagoTweetText {
+                /* text-decoration:none; */
+                color:lightgrey;
+            }
+            a.twitterUsername, a.tweet-url.username {
+                color:lightgrey;
+            }
+            a.displayNameLink:hover, a.timeagoTweetText:hover, a.twitterUsername:hover, a.tweet-url.username:hover {
+                color: #7fdbff; }
+
+            .iconHoverDiv {
+                position:absolute;
+                bottom:0px;
+                left:-64px;
+                /* top:-30px; */
+            }
+            .allIcons {
+                /* display:none; */
+                z-index: 30;
+                /* height:20px; */
+            }
+
+/*--------*/
+
+.column-wrapper{
+    /*border: 1px solid red;*/
+    float: left;
+    min-height: 800px;
+    /*width: 33%;*/    
+}
+
+.loading-data{
+    background: url('loading.gif') no-repeat center center;
+    height:100px;
+    width:100%;
+}
+
+.tweetContainer{
+    height: 420px;
+    margin-left: -17px;
+    overflow: hidden;
+}
+
+.wrapper{
+    padding :5px;
+}

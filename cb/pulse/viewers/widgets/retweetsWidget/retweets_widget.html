@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Stream Pulse </title>
+    <!-- JS -->
+    <script type="text/javascript" src="../../../lib/d3.v3/d3.v3.min.js"></script>
+    <script type="text/javascript" src="../../../lib/twitter-text-1.9.4.min.js"></script>
+    <script type="text/javascript" src="../../../lib/countUp.js-master/countUp.min.js"></script>
+    <script type="text/javascript" src="../../../lib/jquery/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../../../lib/underscore/underscore.min.js"></script>
+    <script type="text/javascript" src="../../../lib/moment.min.js"></script>
+    <script type="text/javascript" src="../../../lib/jquery/jquery.ui.core.js"></script>
+    <script type="text/javascript" src="../../../lib/jquery/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="../../../lib/jquery/jquery.fiji.ticker.js"></script> 
+    <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+    <!-- CSS -->
+    <link href="../../../lib/foundation-5.0.2/css/foundation.min.css" rel="stylesheet">
+    <link href="./lib/style.css" rel="stylesheet">
+    <link href="../../../lib/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../../assets/js/html5shiv.js"></script>
+      <script src="../../../assets/js/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+      .fa-twitter {
+          /* color:#f5f8fa; */
+          /* color:lightgrey; */
+          color: white;
+          padding-left: 5px;
+          padding-right: 5px;
+      }
+      a.displayNameLink {
+          text-decoration:none;
+          color:lightgrey;
+      }
+      a.timeagoTweetText {
+          /* text-decoration:none; */
+          color:lightgrey;
+      }
+      a.twitterUsername, a.tweet-url.username {
+          color:lightgrey;
+      }
+
+
+      .spinner {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin:auto;
+        width: 30px;
+        height: 30px;
+        background: #1abc9c;
+        border-radius: 100%;
+        box-shadow: 
+            -16px 28px 0px #d35400,
+            18px 28px 0px #3498db;
+            /* spin that shit */
+            -webkit-animation:spin .3s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+        @keyframes spin {
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+          
+
+        a.displayNameLink:hover, a.timeagoTweetText:hover, a.twitterUsername:hover, a.tweet-url.username:hover {
+            color: #7fdbff; }
+
+        .iconHoverDiv {
+            position:absolute;
+            bottom:0px;
+            left:-64px;
+            /* top:-30px; */
+        }
+        .allIcons {
+            /* display:none; */
+            z-index: 30;
+            /* height:20px; */
+        }
+        .fa-reply, .fa-retweet, .fa-star {
+            color: #848484;
+            -webkit-transition: color 0.3s ease-in-out;
+            transition: color 0.3s ease-in-out; 
+            margin-right: 4px;
+        }
+        .fa-reply:hover, .fa-retweet:hover, .fa-star:hover {
+            color: #7fdbff;
+        }
+
+    </style>
+    <script type="text/javascript">
+        console.log = function(){}
+    </script>
+
+  <!-- PULSE PARAMETERS -->
+  <script type="text/javascript">
+    _id = 'af0a69e5-1989-4dc2-a697-7d5a2e13eaba';
+    _name = 'Netflix';
+    _viewerConfig = '{"topicLogo":"https://netbase-user-images.s3.amazonaws.com/images/12431/0b6866db-7bdc-461d-b748-257c9de2b087/netflix.png","themeLogo":"https://netbase-user-images.s3.amazonaws.com/images/27/8c5b73c6-d885-4429-a98e-ee6859de27cf/transparent.png","serviceLogo":"https://netbase-user-images.s3.amazonaws.com/images/12431/51a1f60d-a52e-49e5-ac2b-387d88f79149/NetBasePadding.png","geoMapType":"US"}';
+  </script>
+  <!-- PULSE PARAMETERS -->
+
+  </head>
+    <body>
+    <script type="text/javascript" src="../../../lib/foundation-5.0.2/js/foundation.min.js"></script>
+    <script type="text/javascript" src="../../../lib/foundation-5.0.2/js/foundation/foundation.reveal.js"></script>
+    
+        <!-- header, logos -->
+        <div id="main-header" class="row full-width">
+          <div class="small-6 medium-6 large-6 columns">
+            <img id="topicLogo" class="left-header-logo">
+            <img id="themeLogo" class="left-header-logo">
+          </div>
+          <div class="small-6 medium-6 large-6 columns">
+            <img id="serviceLogo" src="../../lib/NetBasePadding.png" class="right-header-logo">
+          </div>
+        </div>
+        <!-- three metric tiles -->
+        <div class="row full-width">
+          <div class="small-12 medium-12 large-12 columns">
+            <div class="row">
+              <!-- ### third metric, sentiment ### -->
+              <div class="small-4 medium-4 large-4 columns">
+                <div class ="vis-title-container">
+                  <div class="row">
+                    <div class="small-8 medium-8 large-8 columns">
+                      <span class="vis-header"> retweets </span> 
+                      <span class="vis-header-time"> (last hour) </span>
+                    </div>
+                    <div class="small-4 medium-4 large-4 columns">
+                    </div>
+                  </div>
+                    <div class="row">
+                      <div class="small-4 medium-4 large-4 columns">
+                        <div class="total-main-number-container">
+                          <span id="uniqueAuthorsTotal" class="total-main-number">
+                             <!-- sentiment data inserted here -->
+                          </span>
+                          <span id="prefixAuthorsSymbolSpan" class="total-main-number"></span>
+                        </div>
+                      </div>
+                        <div class="small-8 medium-8 large-8 columns">
+                          <div id="sparklineTwo"></div>
+                          <div id="sparklineThree"></div>
+                          <span class="sparklineTimeLabel">
+                              last 2 hours
+                          </span>
+                        </div>
+                    </div>
+                </div>
+              </div> <!-- end of last 4 columns -->
+            </div> <!-- end of last 4 row -->
+          </div> <!-- end of 12 columns -->
+        </div> <!-- end of row container -->
+
+  
+        <!-- JavaScript
+        ================================================== -->
+
+      <script src="../../../lib/viewerSetup.js"></script>
+      <script src="../../lib/sparklineChart.js"></script>
+      <script src="./lib/main.js"></script>
+
+      <div id="myModal" class="reveal-modal" data-reveal>
+        <h2>Reviving the pulse...</h2>
+        <p class="lead">This page will refresh with the most recent data</p>
+        <!-- <p>This only occurs after a period of inactivity</p> -->
+        <div class="spinner"></div>
+
+        <a class="close-reveal-modal">&#215;</a>
+      </div>
+
+      <div id="ieModal" class="reveal-modal" data-reveal>
+        <h2>Internet Explorer is not supported for the pulses </h2>
+        <p class="lead">We recommend using Chrome, Firefox or Safari </p>
+        <!-- <p>We recommend using Chrome by Google</p> -->
+
+        <a class="close-reveal-modal">&#215;</a>
+      </div>
+    
+    </body>
+</html>

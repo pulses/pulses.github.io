@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  	<head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title> Trend Pulse </title>
+        <!-- JS -->
+        <script type="text/javascript" src="/cb/pulse/lib/d3.v3/d3.v3.min.js"></script>
+        <script type="text/javascript" src="/cb/pulse/lib/d3/d3.geo.js"></script>
+        <script type="text/javascript" src="/cb/pulse/lib/countUp.js-master/countUp.min.js"></script>
+        <script type="text/javascript" src="/cb/pulse/lib/jquery/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="/cb/pulse/lib/underscore/underscore.min.js"></script>
+        <script type="text/javascript" src="/cb/pulse/lib/moment.min.js"></script>
+        <script type="text/javascript" src="/cb/pulse/lib/jquery/jquery.ui.core.js"></script>
+        <script type="text/javascript" src="/cb/pulse/lib/jquery/jquery.ui.widget.js"></script>
+        <script type="text/javascript" src="/cb/pulse/lib/jquery/jquery.fiji.ticker.js"></script> 
+        <!-- CSS -->
+        <link href="/cb/pulse/lib/foundation-5.0.2/css/foundation.min.css" rel="stylesheet">
+        <link href="./lib/style.css" rel="stylesheet">
+
+        <!-- <script type="text/javascript" src="../../lib/js/twitmarquee.js" defer></script>
+        <link href="front.css" rel="stylesheet"> -->
+
+	    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	    <!--[if lt IE 9]>
+	      <script src="../../assets/js/html5shiv.js"></script>
+	      <script src="../../assets/js/respond.min.js"></script>
+	    <![endif]-->
+        <style type="text/css">
+            .areaNEG {
+              fill: #FF4136;
+            }
+            .areaPOS {
+              fill: #29b739;
+            }
+            .area.above {
+                /* fill: rgb(145,207,96); 
+                fill: rgb(252,141,89); */
+                fill: #83c94c;
+            }
+            .area.below {
+                fill: rgb(252,141,89);
+                /* fill: transparent; */
+                /* fill: rgb(145,207,96);*/ 
+            }
+        
+            .axis path,
+.axis line {
+    fill: none; 
+    /* stroke: #000; */
+    /* stroke: red; */
+    stroke:transparent; 
+    shape-rendering: crispEdges;
+}
+/*
+.x.axis path {
+  display: none;
+}
+*/
+    .axis text {
+        /* fill:white; */
+        fill:#848484;
+        font-size:2.75px;
+    }
+    
+
+    .horizontalGrid {
+        /* stroke:white; */
+        stroke: #1f1f1f;
+        stroke-width:2px;
+        /* stroke-width:3px; */
+    }
+    #gridlineID_0 {
+        stroke:transparent;
+    }
+    /*  this creates space between the label and the baseline of the bars
+        for some reason, margin and padding do not work */
+    #impressions24hrlabel {
+        line-height:30px;
+    }
+
+
+
+
+.spinner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin:auto;
+  width: 30px;
+  height: 30px;
+  background: #1abc9c;
+  border-radius: 100%;
+  box-shadow: 
+    -16px 28px 0px #d35400,
+    18px 28px 0px #3498db;
+  /* spin that shit */
+  -webkit-animation:spin .3s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+
+
+        </style>
+
+<!-- PULSE PARAMETERS -->
+
+<!-- PULSE PARAMETERS -->
+
+  	</head>
+  	<body>
+    <script type="text/javascript" src="/cb/pulse/lib/foundation-5.0.2/js/foundation.min.js"></script>
+    <script type="text/javascript" src="/cb/pulse/lib/foundation-5.0.2/js/foundation/foundation.reveal.js"></script>
+
+        <!-- header, logos -->
+  		<div id="main-header" class="row full-width">
+            <div class="small-6 medium-6 large-6 columns">
+                <img id="topicLogo" xsrc="/cb/pulse/images/NetBase2.png"  class="left-header-logo">
+                <img id="themeLogo" xsrc="/cb/pulse/images/NetBase2.png"  class="left-header-logo">
+            </div>
+            <div class="small-6 medium-6 large-6 columns">
+                <!-- <img id="serviceLogo" src="/cb/pulse/images/NetBase2.png" class="right-header-logo"> 
+                <img id="serviceLogo" src="/cb/pulse/projects/lib/NetBasePadding.png" class="right-header-logo"> -->
+                <img id="serviceLogo" src="../lib/NetBasePadding.png" class="right-header-logo">
+            </div>
+        </div>
+        <!-- three trend lines -->
+        <!-- ### first trend line, mentions ### -->
+        <div id="trendContainer" class="row full-width">
+            <div class="small-12 medium-12 large-12 columns">
+                <div class="row">
+                    <!-- chart -->
+                    <div class="small-8 medium-8 large-8 columns">
+                        <div class="trendlineContainer">
+                            <div id="sparklineOne"></div>
+                            <span class="sparklineTimeLabel">
+                                last 24 hours
+                            </span>
+                        </div>
+                    </div>
+                    <!-- numeric data -->
+                    <div class="small-4 medium-4 large-4 columns">
+                        <div class ="trend-title-container">
+            
+                            <div class="row">
+                                <div class="small-12 medium-12 large-12 columns">
+                                    <span class="vis-header"> mentions </span> 
+                                    <span class="vis-header-time"> (last hour) </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="small-12 medium-12 large-12 columns">
+                                    <div class="total-main-number-container">
+                                        <span id="mentionsTotal" class="total-main-number">
+                                           <!-- mentions data inserted here -->
+                                        </span>
+                                        <span id="prefixMentionsSymbolSpan" class="total-main-number"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="small-12 medium-12 large-12 columns">
+                                    <div class="average-container">
+                                        <span id="mentionsAvg" class="avg-header"></span>
+                                        <span id="avgprefixMentionsSymbolSpan" class="avg-header"></span>
+                                        <span class="average-label">
+                                            avg 
+                                        </span>
+                                        <span id="avgDiffMentions" class="avg-header"></span>
+                                        <span id="avgDiffMentionPercentSign" class="avg-header">%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> <!-- end of trend-title-container -->
+                    </div> <!-- end of 4 columns -->
+                </div> <!-- end of row -->
+            </div> <!-- end of large-12 columns -->
+        </div> <!-- end of row full-width -->
+
+        <!-- ### second trend line, impressions ### -->
+        <div id="trendContainer" class="row full-width">
+            <div class="small-12 medium-12 large-12 columns">
+                <div class="row">
+                    <!-- chart -->
+                    <div class="small-8 medium-8 large-8 columns">
+                        <div class="trendlineContainer">
+                            <div id="sparklineTwo"></div>
+                            <span id="impressions24hrlabel" class="sparklineTimeLabel">
+                                last 24 hours
+                            </span>
+                        </div>
+                    </div>
+                    <!-- numeric data -->
+                    <div class="small-4 medium-4 large-4 columns">
+                        <div class ="trend-title-container">
+                            
+                            <div class="row">
+                                <div class="small-12 medium-12 large-12 columns">
+                                    <span class="vis-header"> impressions </span> 
+                                    <span class="vis-header-time"> (last hour) </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="small-12 medium-12 large-12 columns">
+                                    <div class="total-main-number-container">
+                                        <span id="impressionsTotal" class="total-main-number">
+                                           <!-- impressions data inserted here -->
+                                        </span>
+                                        <span id="prefixImprSymbolSpan" class="total-main-number"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="small-12 medium-12 large-12 columns">
+                                    <div class="average-container">
+                                        <span id="impressionsAvg" class="avg-header"></span>
+                                        <span id="avgprefixImprSymbolSpan" class="avg-header"></span>
+                                        <span class="average-label">
+                                            avg 
+                                        </span>
+                                        <span id="avgDiffImpr" class="avg-header"></span>
+                                        <span id="avgDiffImprPercentSign" class="avg-header">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- end of trend-title-container -->
+                    </div> <!-- end of 4 columns -->
+                </div> <!-- end of row -->
+            </div> <!-- end of large-12 columns -->
+        </div> <!-- end of row full-width -->
+
+        <!-- ### third trend line, net sentiment ### -->
+         <div id="trendContainer" class="row full-width">
+            <div class="small-12 medium-12 large-12 columns">
+                <div class="row">
+                    <!-- chart -->
+                    <div class="small-8 medium-8 large-8 columns">
+                        <div class="trendlineContainer">
+                            <div id="sparklineThree"></div>
+                            <span class="sparklineTimeLabel">
+                                last 24 hours
+                            </span>
+                        </div>
+                    </div>
+                    <!-- numeric data -->
+                    <div class="small-4 medium-4 large-4 columns">
+                        <div class ="trend-title-container">
+                            
+                            <div class="row">
+                                <div class="small-12 medium-12 large-12 columns">
+                                    <span class="vis-header"> net sentiment </span> 
+                                    <span class="vis-header-time"> (last hour) </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="small-12 medium-12 large-12 columns">
+                                    <div class="total-main-number-container">
+                                        <span id="uniqueAuthorsTotal" class="total-main-number">
+                                           <!-- net sentiment data inserted here -->
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="small-12 medium-12 large-12 columns">
+                                    <div class="average-container">
+                                        <span id="uniqueAuthorsAvg" class="avg-header"></span>
+                                        <span class="average-label">
+                                            avg 
+                                        </span>
+                                        <span id="avgDiffSentiment" class="avg-header"></span>
+                                        <!--<span id="avgDiffSentimentPercentSign" class="avg-header">%</span>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- end of trend-title-container -->
+                    </div> <!-- end of 4 columns -->
+                </div> <!-- end of row -->
+            </div> <!-- end of large-12 columns -->
+        </div> <!-- end of row full-width -->
+
+        <!-- JavaScript
+        ================================================== -->
+        <script src="/cb/pulse/lib/viewerSetup.js"></script>
+        <script src="../lib/areaLineBandedChart.js"></script>
+        <!-- <script src="../lib/sparklineChart.js"></script> -->
+        <script src="../lib/blocksBar.js"></script>
+        <script src="../lib/differenceChartTrendPulse.js"></script>
+        <script src="./lib/main.js"></script>
+
+                <div id="myModal" class="reveal-modal" data-reveal>
+                    <h2>Reviving the pulse...</h2>
+                    <p class="lead">This page will refresh with the most recent data</p>
+                    <!-- <p>This only occurs after a period of inactivity</p> -->
+                    <div class="spinner"></div>
+
+                    <a class="close-reveal-modal">&#215;</a>
+                </div>
+
+                <div id="ieModal" class="reveal-modal" data-reveal>
+                    <h2>Internet Explorer is not supported for the pulses </h2>
+                    <p class="lead">We recommend using Chrome, Firefox or Safari </p>
+                    <!-- <p>We recommend using Chrome by Google</p> -->
+
+                    <a class="close-reveal-modal">&#215;</a>
+                </div>
+
+  	</body>
+</html>

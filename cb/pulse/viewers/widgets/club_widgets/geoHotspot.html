@@ -1,0 +1,354 @@
+<!--<!DOCTYPE html>-->
+<!doctype html>
+<html lang="en">
+  	<head>
+	    <!-- <meta charset="utf-8"> -->
+        <meta charset="ISO-8859-1" />
+        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title> Geo Widget </title>
+        <!-- JS -->
+        <script type="text/javascript" src="../../../lib/d3.v3/d3.v3.min.js"></script>
+       
+        <script type="text/javascript" src="../../../lib/jquery/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="../../../lib/underscore/underscore.min.js"></script>
+        <script type="text/javascript" src="../../../lib/jquery/jquery.ui.core.js"></script>
+        <script type="text/javascript" src="../../../lib/topojson.v1.min.js"></script>
+        <!-- CSS -->
+
+        <script src="main.js"></script>
+        <link href="../../../lib/foundation-5.0.2/css/foundation.min.css" rel="stylesheet">
+	<link href="./lib/style.css" rel="stylesheet">
+        <link href="../../../lib/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+	    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	    <!--[if lt IE 9]>
+	      <script src="../../../assets/js/html5shiv.js"></script>
+	      <script src="../../../assets/js/respond.min.js"></script>
+	    <![endif]-->
+        <style type="text/css">
+            .areaNEG {
+              fill: #FF4136;
+            }
+            .areaPOS {
+              fill: #29b739;
+            }
+            .area.above {
+                fill: #83c94c;
+            }
+
+            .area.below {
+                fill: rgb(252,141,89);
+                
+            }
+
+            .spinner {
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin:auto;
+              width: 30px;
+              height: 30px;
+              background: #1abc9c;
+              border-radius: 100%;
+              box-shadow: 
+                -16px 28px 0px #d35400,
+                18px 28px 0px #3498db;
+              /* spin that shit */
+              -webkit-animation:spin .3s linear infinite;
+            }
+
+            @-webkit-keyframes spin {
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+            @keyframes spin {
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+
+            .horizontalGrid {
+                /* stroke:white; */
+                stroke: #1f1f1f;
+                stroke-width:2px;
+                /* stroke-width:3px; */
+            }
+            #gridlineID_0 {
+                stroke:transparent;
+            }
+
+            /* map stuff */
+            .subunit-boundary {
+                fill: none;
+                stroke: #1f1f1f;
+            }
+
+            .subunit-label {
+                fill: #777;
+                fill-opacity: .5;
+                font-size: 20px;
+                font-weight: 300;
+                text-anchor: middle;
+            }
+
+            a.displayNameLink {
+                text-decoration:none;
+                color:lightgrey;
+            }
+            a.timeagoTweetText {
+                /* text-decoration:none; */
+                color:lightgrey;
+            }
+            a.twitterUsername, a.tweet-url.username {
+                color:lightgrey;
+            }
+            a.displayNameLink:hover, a.timeagoTweetText:hover, a.twitterUsername:hover, a.tweet-url.username:hover {
+                color: #7fdbff; }
+
+            .iconHoverDiv {
+                position:absolute;
+                bottom:0px;
+                left:-64px;
+                /* top:-30px; */
+            }
+            .allIcons {
+                /* display:none; */
+                z-index: 30;
+                /* height:20px; */
+            }
+
+        </style>
+
+
+<script type="text/javascript">
+        //console.log('GEO GEO GEO')
+   _id = 'af0a69e5-1989-4dc2-a697-7d5a2e13eaba';
+   _name = 'Netflix';
+   //_viewerConfig = '{"topicLogo":"https://netbase-user-images.s3.amazonaws.com/images/12431/0b6866db-7bdc-461d-b748-257c9de2b087/netflix.png","themeLogo":"https://netbase-user-images.s3.amazonaws.com/images/27/8c5b73c6-d885-4429-a98e-ee6859de27cf/transparent.png","serviceLogo":"https://netbase-user-images.s3.amazonaws.com/images/12431/51a1f60d-a52e-49e5-ac2b-387d88f79149/NetBasePadding.png","geoMapType":"US"}';
+        
+//        var viewerConfigFiles = JSON.parse(_viewerConfig);
+//        if ("geoMapType" in viewerConfigFiles) {
+//            console.log(viewerConfigFiles.geoMapType)
+//            var geo = viewerConfigFiles.geoMapType;
+//            if (geo == 'US'){
+//               document.write("<script language='javascript' type='text/javascript' src='../../../lib/d3/d3.geo.js'><\x2Fscript>"); 
+//               alert(56);
+//            } else if (geo == 'ASIA'){
+//                document.write("<script language='javascript' type='text/javascript' src='../../../lib/topojson.v1.min.js'><\x2Fscript>"); 
+//            } else if (geo =='EUROPE'){
+//                document.write("<script language='javascript' type='text/javascript' src='../../../lib/topojson.v1.min.js'><\x2Fscript>"); 
+//            } else if (geo == 'SOUTHAMERICA'){
+//                document.write("<script language='javascript' type='text/javascript' src='../../../lib/topojson.v1.min.js'><\x2Fscript>"); 
+//            } else if (geo == 'WORLD'){
+//                document.write("<script language='javascript' type='text/javascript' src='../../../lib/topojson.v1.min.js'><\x2Fscript>"); 
+//            } else if (geo == 'BRAZIL'){
+//                document.write("<script language='javascript' type='text/javascript' src='../../../lib/topojson.v1.min.js'><\x2Fscript>");
+//                
+//            } else {
+//                document.write("<script language='javascript' type='text/javascript' src='../../../lib/d3/d3.geo.js'><\x2Fscript>"); 
+//            }
+//        } else {
+//            document.write("<script language='javascript' type='text/javascript' src='../../../lib/d3/d3.geo.js'><\x2Fscript>");
+//        }
+
+        </script>
+  	</head>
+  	<body>
+
+    <script type="text/javascript" src="../../../lib/foundation-5.0.2/js/foundation.min.js"></script>
+    <script type="text/javascript" src="../../../lib/foundation-5.0.2/js/foundation/foundation.reveal.js"></script>
+
+    <script>
+    </script>
+
+        <div id="mainPulseContentDiv" class="row full-width">
+            <div class="small-9 medium-9 large-9 columns">
+ 
+                <div class="row"> <!-- geo and emerging topics -->
+                    <!-- geo -->
+                    <div class="small-8 medium-8 large-8 columns">
+                        <div id="stateVisDiv" class ="vis-title-container">
+                            <span class="vis-header"> geographical hotspots</span>
+                            <span class="vis-header-time"> (last hour) </span>
+                            <div id="mapVisual_1" class="map-display-area"></div>
+                            <span id="legendLabel">
+                                *legend: number of mentions per 1M people
+                            </span>
+                            <br>
+                            <span id="legendLabel">
+                                Copyright &copy 2014, NetBase Solutions, Inc.
+                            </span>
+                            <br>
+                            <img class="miniNetbaseLogo" src="../../lib/NetBasePadding.png">
+                        </div>
+                    </div>
+                </div> <!-- end of second row -->
+            </div> <!-- end of large-9 columns -->
+            <!-- stream -->
+
+        </div> <!-- end of row, full width -->
+
+        <div id="mainPulseContentDiv_2" class="row full-width">
+            <div class="small-9 medium-9 large-9 columns">
+ 
+                <div class="row"> <!-- geo and emerging topics -->
+                    <!-- geo -->
+                    <div class="small-8 medium-8 large-8 columns">
+                        <div id="stateVisDiv_2" class ="vis-title-container">
+                            <span class="vis-header"> geographical hotspots</span>
+                            <span class="vis-header-time"> (last hour) </span>
+                            <div id="mapVisual_2" class="map-display-area"></div>
+                            <span id="legendLabel_2">
+                                *legend: number of mentions per 1M people
+                            </span>
+                            <br>
+                            <span id="legendLabel_2">
+                                Copyright &copy 2014, NetBase Solutions, Inc.
+                            </span>
+                            <br>
+                            <img class="miniNetbaseLogo" src="../../lib/NetBasePadding.png">
+                        </div>
+                    </div>
+                </div> <!-- end of second row -->
+            </div> <!-- end of large-9 columns -->
+            <!-- stream -->
+
+        </div> <!-- end of row, full width -->
+
+        <div id="mainPulseContentDiv_3" class="row full-width">
+            <div class="small-9 medium-9 large-9 columns">
+ 
+                <div class="row"> <!-- geo and emerging topics -->
+                    <!-- geo -->
+                    <div class="small-8 medium-8 large-8 columns">
+                        <div id="stateVisDiv_3" class ="vis-title-container">
+                            <span class="vis-header"> geographical hotspots</span>
+                            <span class="vis-header-time"> (last hour) </span>
+                            <div id="mapVisual_3" class="map-display-area"></div>
+                            <span id="legendLabel_3">
+                                *legend: number of mentions per 1M people
+                            </span>
+                            <br>
+                            <span id="legendLabel_3">
+                                Copyright &copy 2014, NetBase Solutions, Inc.
+                            </span>
+                            <br>
+                            <img class="miniNetbaseLogo" src="../../lib/NetBasePadding.png">
+                        </div>
+                    </div>
+                </div> <!-- end of second row -->
+            </div> <!-- end of large-9 columns -->
+            <!-- stream -->
+
+        </div> <!-- end of row, full width -->        
+
+        <div id="mainPulseContentDiv_4" class="row full-width">
+            <div class="small-9 medium-9 large-9 columns">
+ 
+                <div class="row"> <!-- geo and emerging topics -->
+                    <!-- geo -->
+                    <div class="small-8 medium-8 large-8 columns">
+                        <div id="stateVisDiv_4" class ="vis-title-container">
+                            <span class="vis-header"> geographical hotspots</span>
+                            <span class="vis-header-time"> (last hour) </span>
+                            <div id="mapVisual_4" class="map-display-area"></div>
+                            <span id="legendLabel_4">
+                                *legend: number of mentions per 1M people
+                            </span>
+                            <br>
+                            <span id="legendLabel_4">
+                                Copyright &copy 2014, NetBase Solutions, Inc.
+                            </span>
+                            <br>
+                            <img class="miniNetbaseLogo" src="../../lib/NetBasePadding.png">
+                        </div>
+                    </div>
+                </div> <!-- end of second row -->
+            </div> <!-- end of large-9 columns -->
+            <!-- stream -->
+        </div>
+        
+        <div id="mainPulseContentDiv_5" class="row full-width">
+            <div class="small-9 medium-9 large-9 columns">
+ 
+                <div class="row"> <!-- geo and emerging topics -->
+                    <!-- geo -->
+                    <div class="small-8 medium-8 large-8 columns">
+                        <div id="stateVisDiv_5" class ="vis-title-container">
+                            <span class="vis-header"> geographical hotspots</span>
+                            <span class="vis-header-time"> (last hour) </span>
+                            <div id="mapVisual_5" class="map-display-area"></div>
+                            <span id="legendLabel_5">
+                                *legend: number of mentions per 1M people
+                            </span>
+                            <br>
+                            <span id="legendLabel_5">
+                                Copyright &copy 2014, NetBase Solutions, Inc.
+                            </span>
+                            <br>
+                            <img class="miniNetbaseLogo" src="../../lib/NetBasePadding.png">
+                        </div>
+                    </div>
+                </div> <!-- end of second row -->
+            </div> <!-- end of large-9 columns -->            
+        </div> <!-- end of row, full width -->          
+        
+        <div id="mainPulseContentDiv_6" class="row full-width">
+            <div class="small-9 medium-9 large-9 columns">
+ 
+                <div class="row"> <!-- geo and emerging topics -->
+                    <!-- geo -->
+                    <div class="small-8 medium-8 large-8 columns">
+                        <div id="stateVisDiv_6" class ="vis-title-container">
+                            <span class="vis-header"> geographical hotspots</span>
+                            <span class="vis-header-time"> (last hour) </span>
+                            <div id="mapVisual_6" class="map-display-area"></div>
+                            <span id="legendLabel_6">
+                                *legend: number of mentions per 1M people
+                            </span>
+                            <br>
+                            <span id="legendLabel_6">
+                                Copyright &copy 2014, NetBase Solutions, Inc.
+                            </span>
+                            <br>
+                            <img class="miniNetbaseLogo" src="../../lib/NetBasePadding.png">
+                        </div>
+                    </div>
+                </div> <!-- end of second row -->
+            </div> <!-- end of large-9 columns -->            
+        </div> <!-- end of row, full width -->         
+        
+        <div id="myModal" class="reveal-modal" data-reveal>
+            <h2>Reviving the pulse...</h2>
+            <p class="lead">This page will refresh with the most recent data</p>
+            <!-- <p>This only occurs after a period of inactivity</p> -->
+            <div class="spinner"></div>
+
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <div id="ieModal" class="reveal-modal" data-reveal>
+            <h2>Internet Explorer is not supported for the pulses </h2>
+            <p class="lead">We recommend using Chrome, Firefox or Safari </p>
+            <!-- <p>We recommend using Chrome by Google</p> -->
+
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                geoHotspot.init("mapVisual_1", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba", 'US');
+//                geoHotspot.init("mapVisual_2", "4c633aa4-12c9-4298-b634-c8b6f3e810dd", 'BRAZIL');
+//                geoHotspot.init("mapVisual_3", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba", 'WORLD');
+//                geoHotspot.init("mapVisual_4", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba", 'ASIA');
+//                geoHotspot.init("mapVisual_5", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba", 'EUROPE');
+//                geoHotspot.init("mapVisual_6", "4c633aa4-12c9-4298-b634-c8b6f3e810dd", 'SOUTHAMERICA');
+            });
+        </script>        
+        
+  	</body>
+</html>

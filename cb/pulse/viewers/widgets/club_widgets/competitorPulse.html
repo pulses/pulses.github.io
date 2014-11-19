@@ -1,0 +1,289 @@
+<!--<!DOCTYPE html>-->
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- <meta charset="utf-8"> -->
+        <meta charset="ISO-8859-1" />
+        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Competitor Pulse </title>
+        <!-- JS -->
+        <script type="text/javascript" src="../../../lib/d3.v3/d3.v3.min.js"></script>
+        <script type="text/javascript" src="../../../lib/twitter-text-1.9.4.min.js"></script>
+        <script type="text/javascript" src="../../../lib/countUp.js-master/countUp.min.js"></script>
+        <script type="text/javascript" src="../../../lib/jquery/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="../../../lib/underscore/underscore.min.js"></script>
+        <script type="text/javascript" src="../../../lib/moment.min.js"></script>
+        <script type="text/javascript" src="../../../lib/jquery/jquery.ui.core.js"></script>
+        <script type="text/javascript" src="../../../lib/jquery/jquery.ui.widget.js"></script>
+        <script type="text/javascript" src="../../../lib/jquery/jquery.fiji.ticker.js"></script>
+        <script type="text/javascript" src="../../../lib/jquery/jquery.browser.js"></script>
+        <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+        <script type="text/javascript" src="../../../lib/topojson.v1.min.js"></script>
+
+        <script src="main.js"></script>
+        <link href="../../../lib/foundation-5.0.2/css/foundation.min.css" rel="stylesheet">
+	<link href="./lib/style.css" rel="stylesheet">
+        <link href="../../../lib/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="../../../assets/js/html5shiv.js"></script>
+          <script src="../../../assets/js/respond.min.js"></script>
+        <![endif]-->
+        <style type="text/css">
+            .areaNEG {
+              fill: #FF4136;
+            }
+            .areaPOS {
+              fill: #29b739;
+            }
+            .area.above {
+                fill: #83c94c;
+            }
+
+            .area.below {
+                fill: rgb(252,141,89);
+                
+            }
+
+            .spinner {
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin:auto;
+              width: 30px;
+              height: 30px;
+              background: #1abc9c;
+              border-radius: 100%;
+              box-shadow: 
+                -16px 28px 0px #d35400,
+                18px 28px 0px #3498db;
+              /* spin that shit */
+              -webkit-animation:spin .3s linear infinite;
+            }
+
+            @-webkit-keyframes spin {
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+            @keyframes spin {
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+
+            .horizontalGrid {
+                /* stroke:white; */
+                stroke: #1f1f1f;
+                stroke-width:2px;
+                /* stroke-width:3px; */
+            }
+            #gridlineID_0 {
+                stroke:transparent;
+            }
+
+            /* map stuff */
+            .subunit-boundary {
+                fill: none;
+                stroke: #1f1f1f;
+            }
+
+            .subunit-label {
+                fill: #777;
+                fill-opacity: .5;
+                font-size: 20px;
+                font-weight: 300;
+                text-anchor: middle;
+            }
+
+            a.displayNameLink {
+                text-decoration:none;
+                color:lightgrey;
+            }
+            a.timeagoTweetText {
+                /* text-decoration:none; */
+                color:lightgrey;
+            }
+            a.twitterUsername, a.tweet-url.username {
+                color:lightgrey;
+            }
+            a.displayNameLink:hover, a.timeagoTweetText:hover, a.twitterUsername:hover, a.tweet-url.username:hover {
+                color: #7fdbff; }
+
+            .iconHoverDiv {
+                position:absolute;
+                bottom:0px;
+                left:-64px;
+                /* top:-30px; */
+            }
+            .allIcons {
+                /* display:none; */
+                z-index: 30;
+                /* height:20px; */
+            }
+
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript" src="../../../lib/foundation-5.0.2/js/foundation.min.js"></script>
+        <script type="text/javascript" src="../../../lib/foundation-5.0.2/js/foundation/foundation.reveal.js"></script>
+        
+        
+        <div class="wrapper row full-width">-->
+        <!--<div class="wrapper small-10 medium-10 large-10 columns">-->    
+            <div class="row">            
+                <div class="small-2 medium-2 large-2 columns">
+                    <img class="left-header-logo" alt="logo" src="https://netbase-user-images.s3.amazonaws.com/images/12431/0b6866db-7bdc-461d-b748-257c9de2b087/netflix.png" />
+                    <div class="vis-title-container"><span class="vis-header"> Emerging Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="netflix_emerging"></div>
+                </div>
+
+                <div class="small-2 medium-2 large-2 columns">
+                    <img class="left-header-logo" alt="logo" src="./lib/image001.png" />
+                    <div class="vis-title-container"><span class="vis-header"> Emerging Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="netflix_emerging_2"></div>
+                </div>
+                
+                <div class="small-2 medium-2 large-2 columns">
+                    <img class="left-header-logo" alt="logo" src="https://netbase-user-images.s3.amazonaws.com/images/12431/58e10399-4cae-4d05-81b3-086d37b533f5/BannerPolis.png">
+                    <div class="vis-title-container"><span class="vis-header"> Emerging Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="eleicoes_emerging"></div>
+                </div>
+                
+                <div class="small-2 medium-2 large-2 columns">
+                    <img class="left-header-logo" alt="logo" src="./lib/image002.png" />
+                    <div class="vis-title-container"><span class="vis-header"> Emerging Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="eleicoes_emerging_2"></div>
+                </div>
+                
+                <div class="small-2 medium-2 large-2 columns">
+                    <img class="left-header-logo" alt="logo" src="./lib/image003.png" />
+                    <div class="vis-title-container"><span class="vis-header"> Emerging Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="netflix_emerging_3"></div>
+                </div>
+                
+                <div class="small-2 medium-2 large-2 columns"></div>
+            </div>            
+            
+            <div class="row">    
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Mentions Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="netflix_mentions"></div>
+                </div>
+
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Mentions Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="netflix_mentions_2"></div>
+                </div>
+
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Mentions Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="eleicoes_mentions"></div>
+                </div>
+
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Mentions Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="eleicoes_mentions_2"></div>
+                </div>
+                
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Mentions Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="netflix_mentions_3"></div>
+                </div>
+                
+                <div class="small-2 medium-2 large-2 columns"></div>
+            </div>
+            
+            <div class="row">    
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Impressions Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="netflix_impressions"></div>
+                </div>
+
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Impressions Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="netflix_impressions_2"></div>
+                </div>
+
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Impressions Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="eleicoes_impressions"></div>
+                </div>
+
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Impressions Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="eleicoes_impressions_2"></div>
+                </div>
+                
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Impressions Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="netflix_impressions_3"></div>
+                </div>
+                
+                <div class="small-2 medium-2 large-2 columns"></div>
+            </div>
+            <div class="row">    
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Net Sentiment Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="netflix_sentiment"></div>
+                </div>
+
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Net Sentiment Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="netflix_sentiment_2"></div>
+                </div>
+
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Net Sentiment Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="eleicoes_sentiment"></div>
+                </div>
+
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Net Sentiment Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="eleicoes_sentiment_2"></div>
+                </div>
+                
+                <div class="small-2 medium-2 large-2 columns">
+                    <div class="vis-title-container"><span class="vis-header"> Net Sentiment Topics</span><span class="vis-header-time"> (last hour) </span></div>
+                    <div id="netflix_sentiment_3"></div>
+                </div>
+                
+                <div class="small-2 medium-2 large-2 columns"></div>
+            </div>             
+        </div> 
+        
+        <script type="text/javascript">
+            $(document).ready(function() {
+                emergingTopics.init("netflix_emerging", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                mentionsWidget.init("netflix_mentions", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                impressionsWidget.init("netflix_impressions", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                netSentiment.init("netflix_sentiment", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                
+                emergingTopics.init("eleicoes_emerging", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+                mentionsWidget.init("eleicoes_mentions", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+                impressionsWidget.init("eleicoes_impressions", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+                netSentiment.init("eleicoes_sentiment", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+
+                emergingTopics.init("netflix_emerging_2", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                mentionsWidget.init("netflix_mentions_2", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                impressionsWidget.init("netflix_impressions_2", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                netSentiment.init("netflix_sentiment_2", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                
+                emergingTopics.init("eleicoes_emerging_2", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+                mentionsWidget.init("eleicoes_mentions_2", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+                impressionsWidget.init("eleicoes_impressions_2", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+                netSentiment.init("eleicoes_sentiment_2", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+
+                emergingTopics.init("netflix_emerging_3", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                mentionsWidget.init("netflix_mentions_3", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                impressionsWidget.init("netflix_impressions_3", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+                netSentiment.init("netflix_sentiment_3", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba"); 
+            });
+        </script>        
+        
+    </body>
+</html>

@@ -1,0 +1,441 @@
+<!--<!DOCTYPE html>-->
+<!doctype html>
+<html lang="en">
+    <head>
+      <!-- <meta charset="utf-8"> -->
+      <meta charset="ISO-8859-1" />
+      <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title> All Widget Example</title>
+        <!-- JS -->
+      <script type="text/javascript" src="../../../lib/d3.v3/d3.v3.min.js"></script>
+      <script type="text/javascript" src="../../../lib/twitter-text-1.9.4.min.js"></script>
+      <script type="text/javascript" src="../../../lib/countUp.js-master/countUp.min.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery/jquery-2.0.3.min.js"></script>
+      <script type="text/javascript" src="../../../lib/underscore/underscore.min.js"></script>
+      <script type="text/javascript" src="../../../lib/moment.min.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery/jquery.ui.core.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery/jquery.ui.widget.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery/jquery.fiji.ticker.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery/jquery.browser.js"></script>
+      <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+      <script type="text/javascript" src="../../../lib/topojson.v1.min.js"></script>
+      
+      <script src="main.js"></script>
+      <link href="../../../lib/foundation-5.0.2/css/foundation.min.css" rel="stylesheet">
+      <link href="./lib/style.css" rel="stylesheet">
+      <link href="../../../lib/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+      <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!--[if lt IE 9]>
+        <script src="../../../assets/js/html5shiv.js"></script>
+        <script src="../../../assets/js/respond.min.js"></script>
+      <![endif]-->
+      <style type="text/css">
+
+        .spinner {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin:auto;
+          width: 30px;
+          height: 30px;
+          background: #1abc9c;
+          border-radius: 100%;
+          box-shadow: 
+            -16px 28px 0px #d35400,
+            18px 28px 0px #3498db;
+          /* spin that shit */
+          -webkit-animation:spin .3s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+        @keyframes spin {
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+
+        /* map stuff */
+        .subunit-boundary {
+            fill: none;
+            /* stroke: #777; */
+            stroke: #1f1f1f;
+            /* stroke-dasharray: 2,2;
+            stroke-linejoin: round; */
+        }
+
+        .subunit-label {
+            fill: #777;
+            fill-opacity: .5;
+            font-size: 20px;
+            font-weight: 300;
+            text-anchor: middle;
+        }
+
+
+        .fa-twitter {
+            /* color:#f5f8fa; */
+            /* color:lightgrey; */
+            color: white;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+        a.displayNameLink {
+            text-decoration:none;
+            color:lightgrey;
+        }
+        a.timeagoTweetText {
+            /* text-decoration:none; */
+            color:lightgrey;
+        }
+        a.twitterUsername, a.tweet-url.username {
+            color:lightgrey;
+        }
+        a.displayNameLink:hover, a.timeagoTweetText:hover, a.twitterUsername:hover, a.tweet-url.username:hover {
+            color: #7fdbff; }
+
+        .iconHoverDiv {
+            position:absolute;
+            bottom:0px;
+            left:-64px;
+            /* top:-30px; */
+        }
+        .allIcons {
+            /* display:none; */
+            z-index: 30;
+            /* height:20px; */
+        }
+        .fa-reply, .fa-retweet, .fa-star {
+            color: #848484;
+            -webkit-transition: color 0.3s ease-in-out;
+            transition: color 0.3s ease-in-out; 
+            margin-right: 4px;
+        }
+        .fa-reply:hover, .fa-retweet:hover, .fa-star:hover {
+            color: #7fdbff;
+        }
+      </style>
+    </head>
+  <body>
+
+    <script type="text/javascript" src="../../../lib/foundation-5.0.2/js/foundation.min.js"></script>
+    <script type="text/javascript" src="../../../lib/foundation-5.0.2/js/foundation/foundation.reveal.js"></script>
+    
+    <!-- column one -->
+    <div class="column-wrapper" id="column_1">
+
+        <div class="row full-width" id="main-header">
+            <img class="left-header-logo" id="topicLogo" src="https://netbase-user-images.s3.amazonaws.com/images/12431/0b6866db-7bdc-461d-b748-257c9de2b087/netflix.png" />
+            <img class="left-header-logo" id="themeLogo" src="https://netbase-user-images.s3.amazonaws.com/images/27/8c5b73c6-d885-4429-a98e-ee6859de27cf/transparent.png" />
+        </div>    
+    
+        <!--Emerging Topics -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Emerging topics (Netflix)</span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <div id="netflix_emerging"> 
+                </div>
+            </div>
+        </div>
+        
+        <!-- Net Sentiment -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Impressions (Netflix)</span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <div id="netflix_sentiment">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Mentions -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Mentions (Netflix)</span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <div id="netflix_mentions">
+                </div>
+            </div>
+        </div>           
+
+
+        <!-- Impressions -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Impressions (Netflix)</span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <div id="netflix_impressions">
+                </div>
+            </div>
+        </div>
+
+        <!-- Retweets -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Retweets (Netflix) </span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <div id="netflix_retweets">
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Most Recent -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Most Recent (Netflix) </span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <!--tweetContainer class is optional -->
+                <div id="netflix_most_recent" class="tweetContainer">
+                </div>
+            </div>
+        </div>
+
+        <!-- Most Impression -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Most Impression (Netflix) </span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <!--tweetContainer class is optional -->
+                <div id="netflix_most_impressions" class="tweetContainer">
+                </div>
+            </div>
+        </div>
+
+        <!-- Most Retweets -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Most Retweets (Netflix) </span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <!--tweetContainer class is optional -->
+                <div id="netflix_most_retweets" class="tweetContainer">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Geo Hotspot-->
+        <div class="row"> <!-- geo and emerging topics -->
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stateVisDiv_2" class ="vis-title-container">
+                    <span class="vis-header"> geographical hotspots (Netflix)</span>
+                    <span class="vis-header-time"> (last hour) </span>
+                    <div id="netflix_geo_hotspot"></div>
+                    <span id="legendLabel">
+                        *legend: number of mentions per 1M people
+                    </span>
+                    <br>
+                    <span id="legendLabel">
+                        Copyright &copy; 2014, NetBase Solutions, Inc.
+                    </span>
+                    <br>
+                    <img class="miniNetbaseLogo" src="../../lib/NetBasePadding.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="column-wrapper" id="column_2">
+        <div class="row full-width" id="main-header">
+            <div class="small-6 medium-6 large-6 columns" id="leftLogoContainer">
+                <img class="left-header-logo" id="topicLogo" src="https://netbase-user-images.s3.amazonaws.com/images/12431/58e10399-4cae-4d05-81b3-086d37b533f5/BannerPolis.png">        
+            </div>
+        </div> 
+    
+        <!--Emerging Topics -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Emerging topics (Eleicoes)</span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <div id="eleicoes_emerging"> 
+                </div>
+            </div>
+        </div>
+        
+        <!-- Net Sentiment -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Impressions (Eleicoes)</span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <div id="eleicoes_sentiment">
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Mentions -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Mentions (Eleicoes)</span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <div id="eleicoes_mentions">
+                </div>
+            </div>
+        </div>           
+
+
+        <!-- Impressions -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Impressions (Eleicoes)</span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <div id="eleicoes_impressions">
+                </div>
+            </div>
+        </div>
+
+        <!-- Retweets -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Retweets (Eleicoes) </span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <div id="eleicoes_retweets">
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Most Recent -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Most Recent (Eleicoes) </span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <!--tweetContainer class is optional -->
+                <div id="eleicoes_most_recent" class="tweetContainer">
+                </div>
+            </div>
+        </div>
+
+        <!-- Most Impression -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Most Impression (Eleicoes) </span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <!--tweetContainer class is optional -->
+                <div id="eleicoes_most_impressions" class="tweetContainer">
+                </div>
+            </div>
+        </div>
+
+        <!-- Most Retweets -->
+        <div class="row">
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stream-header" class="vis-title-container">
+                    <span class="vis-header"> Most Retweets (Eleicoes) </span> 
+                    <span class="vis-header-time"> (last hour) </span>
+                </div>
+                <!--tweetContainer class is optional -->
+                <div id="eleicoes_most_retweets" class="tweetContainer">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Geo Hotspot-->
+        <div class="row"> <!-- geo and emerging topics -->
+            <div class="small-4 medium-4 large-10 columns">
+                <div id="stateVisDiv_2" class ="vis-title-container">
+                    <span class="vis-header"> geographical hotspots (Eleicoes)</span>
+                    <span class="vis-header-time"> (last hour) </span>
+                    <div id="eleicoes_geo_hotspot"></div>
+                    <span id="legendLabel">
+                        *legend: number of mentions per 1M people
+                    </span>
+                    <br>
+                    <span id="legendLabel">
+                        Copyright &copy; 2014, NetBase Solutions, Inc.
+                    </span>
+                    <br>
+                    <img class="miniNetbaseLogo" src="../../lib/NetBasePadding.png" />
+                </div>
+            </div>
+        </div>        
+        
+    </div>    
+
+    <div id="myModal" class="reveal-modal" data-reveal>
+        <h2>Reviving the pulse...</h2>
+        <p class="lead">This page will refresh with the most recent data</p>
+        <!-- <p>This only occurs after a period of inactivity</p> -->
+        <div class="spinner"></div>
+
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+
+    <div id="ieModal" class="reveal-modal" data-reveal>
+        <h2>Internet Explorer is not supported for the pulses </h2>
+        <p class="lead">We recommend using Chrome, Firefox or Safari </p>
+        <!-- <p>We recommend using Chrome by Google</p> -->
+
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+    
+      
+    <script type="text/javascript">
+      $(document).ready(function() {
+        //Netflix widgets  
+        mentionsWidget.init("netflix_mentions", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+        impressionsWidget.init("netflix_impressions", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+        emergingTopics.init("netflix_emerging", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+        netSentiment.init("netflix_sentiment", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+        retweetsWidget.init("netflix_retweets", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+        mostRecent.init("netflix_most_recent", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+        mostImpressions.init("netflix_most_impressions", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+        mostRetweets.init("netflix_most_retweets", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba");
+        //Supported Geographies - "US", "ASIA", "EUROPE", "SOUTHAMERICA", "WORLD", "BRAZIL" (in capital letters)
+        geoHotspot.init("netflix_geo_hotspot", "af0a69e5-1989-4dc2-a697-7d5a2e13eaba", 'US');
+
+        //Eleicoes widgets
+        mentionsWidget.init("eleicoes_mentions", '4c633aa4-12c9-4298-b634-c8b6f3e810dd');
+        impressionsWidget.init("eleicoes_impressions", '4c633aa4-12c9-4298-b634-c8b6f3e810dd');
+        emergingTopics.init("eleicoes_emerging", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+        netSentiment.init("eleicoes_sentiment", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+        retweetsWidget.init("eleicoes_retweets", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+        mostRecent.init("eleicoes_most_recent", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+        mostImpressions.init("eleicoes_most_impressions", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+        mostRetweets.init("eleicoes_most_retweets", "4c633aa4-12c9-4298-b634-c8b6f3e810dd");
+        //Supported Geographies - "US", "ASIA", "EUROPE", "SOUTHAMERICA", "WORLD", "BRAZIL" (in capital letters)
+        geoHotspot.init("eleicoes_geo_hotspot", "4c633aa4-12c9-4298-b634-c8b6f3e810dd", 'BRAZIL');        
+      });
+    </script>
+
+  </body>
+</html>

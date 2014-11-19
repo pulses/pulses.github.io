@@ -1,0 +1,264 @@
+<!--<!DOCTYPE html>-->
+<!doctype html>
+<html lang="en">
+  	<head>
+	    <!-- <meta charset="utf-8"> -->
+        <meta charset="ISO-8859-1" />
+        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title> Brand Pulse | Emerging Topics</title>
+        <!-- JS -->
+        <script type="text/javascript" src="../../lib/d3.v3/d3.v3.min.js"></script>
+
+        <script type="text/javascript" src="../../lib/twitter-text-1.9.4.min.js"></script>
+        <script type="text/javascript" src="../../lib/countUp.js-master/countUp.min.js"></script>
+        <script type="text/javascript" src="../../lib/jquery/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="../../lib/underscore/underscore.min.js"></script>
+        <script type="text/javascript" src="../../lib/moment.min.js"></script>
+        <script type="text/javascript" src="../../lib/jquery/jquery.ui.core.js"></script>
+        <script type="text/javascript" src="../../lib/jquery/jquery.ui.widget.js"></script>
+        <script type="text/javascript" src="../../lib/jquery/jquery.fiji.ticker.js"></script>
+        <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+
+        <link href="../../lib/foundation-5.0.2/css/foundation.min.css" rel="stylesheet">
+	    <link href="./lib/style.css" rel="stylesheet">
+        <link href="../../lib/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+	    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	    <!--[if lt IE 9]>
+	      <script src="../../assets/js/html5shiv.js"></script>
+	      <script src="../../assets/js/respond.min.js"></script>
+	    <![endif]-->
+        <style type="text/css">
+            .areaNEG {
+              fill: #FF4136;
+            }
+            .areaPOS {
+              fill: #29b739;
+            }
+            .area.above {
+                /* fill: rgb(145,207,96); 
+                fill: rgb(252,141,89); */
+                fill: #83c94c;
+            }
+
+            .area.below {
+                fill: rgb(252,141,89);
+                /* fill: transparent; */
+                /* fill: rgb(145,207,96);*/
+                
+            }
+
+            
+
+.spinner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin:auto;
+  width: 30px;
+  height: 30px;
+  background: #1abc9c;
+  border-radius: 100%;
+  box-shadow: 
+    -16px 28px 0px #d35400,
+    18px 28px 0px #3498db;
+  /* spin that shit */
+  -webkit-animation:spin .3s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+    .horizontalGrid {
+        /* stroke:white; */
+        stroke: #1f1f1f;
+        stroke-width:2px;
+        /* stroke-width:3px; */
+    }
+    #gridlineID_0 {
+        stroke:transparent;
+    }
+
+    /* map stuff */
+    .subunit-boundary {
+        fill: none;
+        /* stroke: #777; */
+        stroke: #1f1f1f;
+        /* stroke-dasharray: 2,2;
+        stroke-linejoin: round; */
+    }
+
+    .subunit-label {
+        fill: #777;
+        fill-opacity: .5;
+        font-size: 20px;
+        font-weight: 300;
+        text-anchor: middle;
+    }
+
+            /*
+            .line {
+                fill: none;
+                stroke: white;
+                stroke-width: 6px;
+            }
+            */
+            /*
+            .logoTimeDiv{
+                color:lightgrey;
+                font-size:14px;
+                float:right;
+            }
+            .bothUserNames {
+                float:left;
+            }
+            .text {
+                display:block;
+            }
+            */
+            /*
+            .twitterLogo
+            .timeAgo
+            */
+            .fa-twitter {
+                /* color:#f5f8fa; */
+                /* color:lightgrey; */
+                color: white;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            a.displayNameLink {
+                text-decoration:none;
+                color:lightgrey;
+            }
+            a.timeagoTweetText {
+                /* text-decoration:none; */
+                color:lightgrey;
+            }
+            a.twitterUsername, a.tweet-url.username {
+                color:lightgrey;
+            }
+            a.displayNameLink:hover, a.timeagoTweetText:hover, a.twitterUsername:hover, a.tweet-url.username:hover {
+                color: #7fdbff; }
+
+            .iconHoverDiv {
+                position:absolute;
+                bottom:0px;
+                left:-64px;
+                /* top:-30px; */
+            }
+            .allIcons {
+                /* display:none; */
+                z-index: 30;
+                /* height:20px; */
+            }
+            .fa-reply, .fa-retweet, .fa-star {
+                color: #848484;
+                -webkit-transition: color 0.3s ease-in-out;
+                transition: color 0.3s ease-in-out; 
+                margin-right: 4px;
+            }
+            .fa-reply:hover, .fa-retweet:hover, .fa-star:hover {
+                color: #7fdbff;
+            }
+
+        </style>
+
+<!-- PULSE PARAMETERS -->
+<!--
+<script type="text/javascript">
+   _id = 'a2ec76bb-556e-40da-bf65-3ec2f99c112b';
+   _name = 'Taco Bell';
+   _viewerConfig = '{"topicLogo":"https://netbase-user-images.s3.amazonaws.com/images/27/80c9fe47-784a-4613-b190-1ba336f62b23/TacoBell_BW_Logo.png","geoMapType":"US"}';
+   //_geo = 'usa';
+</script>
+-->
+<!-- PULSE PARAMETERS -->
+<script type="text/javascript">
+   _id = 'af0a69e5-1989-4dc2-a697-7d5a2e13eaba';
+   _name = 'Netflix';
+   _viewerConfig = '{"topicLogo":"https://netbase-user-images.s3.amazonaws.com/images/12431/0b6866db-7bdc-461d-b748-257c9de2b087/netflix.png","themeLogo":"https://netbase-user-images.s3.amazonaws.com/images/27/8c5b73c6-d885-4429-a98e-ee6859de27cf/transparent.png","serviceLogo":"https://netbase-user-images.s3.amazonaws.com/images/12431/51a1f60d-a52e-49e5-ac2b-387d88f79149/NetBasePadding.png","geoMapType":"US"}';
+
+        console.log = function(){}
+        //console.log('GEO GEO GEO')
+        var viewerConfigFiles = JSON.parse(_viewerConfig);
+        if ("geoMapType" in viewerConfigFiles) {
+            console.log(viewerConfigFiles.geoMapType)
+            var geo = viewerConfigFiles.geoMapType;
+            if (geo == 'US'){
+               document.write("<script language='javascript' type='text/javascript' src='../../lib/d3/d3.geo.js'><\x2Fscript>"); 
+            } else if (geo == 'ASIA'){
+                document.write("<script language='javascript' type='text/javascript' src='../../lib/topojson.v1.min.js'><\x2Fscript>"); 
+            } else if (geo =='EUROPE'){
+                document.write("<script language='javascript' type='text/javascript' src='../../lib/topojson.v1.min.js'><\x2Fscript>"); 
+            } else if (geo == 'SOUTHAMERICA'){
+                document.write("<script language='javascript' type='text/javascript' src='../../lib/topojson.v1.min.js'><\x2Fscript>"); 
+            } else if (geo == 'WORLD'){
+                document.write("<script language='javascript' type='text/javascript' src='../../lib/topojson.v1.min.js'><\x2Fscript>"); 
+            } else {
+                document.write("<script language='javascript' type='text/javascript' src='../../lib/d3/d3.geo.js'><\x2Fscript>"); 
+            }
+        } else {
+            document.write("<script language='javascript' type='text/javascript' src='../../lib/d3/d3.geo.js'><\x2Fscript>");
+        }
+        /*
+        if ("geoMapType" in viewerConfigFiles) {
+            var mapType = viewerConfig.geoMapType;
+            console.log("geo type = " + mapType);
+                
+        }
+        */
+            //var loadJquery = true;
+
+        </script>
+    
+
+  	</head>
+  	<body>
+
+    <script type="text/javascript" src="../../lib/foundation-5.0.2/js/foundation.min.js"></script>
+    <script type="text/javascript" src="../../lib/foundation-5.0.2/js/foundation/foundation.reveal.js"></script>
+    
+    <div class="row full-width" id="mainPulseContentDiv">
+            <div class="small-9 medium-9 large-9 columns">
+                 <!-- end of first row / top three tiles -->
+                <div class="row"> <!-- geo and emerging topics -->
+                    <!-- geo -->
+                    
+                    <!-- emerging topics bar chart -->
+                    <div class="small-4 medium-4 large-4 columns">
+                        <div class="vis-title-container" id="barVisDiv">
+                            <div id="stream-header">
+                                <span class="vis-header"> emerging topics </span> 
+                                <span class="vis-header-time"> (last hour) </span>
+                            </div>
+                            <div id="bars">
+                                <!--<svg preserveAspectRatio="xMidYMid" viewBox="0 0 320 470" width="307" height="450.90625"><g class="bar" transform="translate(0,127)" style="fill-opacity: 1;"><rect width="248.88888888888886" id="phrase4" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">group</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">7</text></g><g class="bar" transform="translate(0,3)" style="fill-opacity: 1;"><rect width="320" id="phrase0" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">Vudu</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">9</text></g><g class="bar" transform="translate(0,34)" style="fill-opacity: 1;"><rect width="320" id="phrase1" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">INFLICTION EXCLUSIVE CLIP</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">9</text></g><g class="bar" transform="translate(0,65)" style="fill-opacity: 1;"><rect width="320" id="phrase2" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">FB page</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">9</text></g><g class="bar" transform="translate(0,96)" style="fill-opacity: 1;"><rect width="320" id="phrase3" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">Google Play</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">9</text></g><g class="bar" transform="translate(0,313)" style="fill-opacity: 1;"><rect width="71.11111111111111" id="phrase10" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">more episode</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">2</text></g><g class="bar" transform="translate(0,220)" style="fill-opacity: 1;"><rect width="106.66666666666666" id="phrase7" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">free app</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">3</text></g><g class="bar" transform="translate(0,282)" style="fill-opacity: 1;"><rect width="71.11111111111111" id="phrase9" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">spot-on recommendations</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">2</text></g><g class="bar" transform="translate(0,158)" style="fill-opacity: 1;"><rect width="142.22222222222223" id="phrase5" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">okay</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">4</text></g><g class="bar" transform="translate(0,189)" style="fill-opacity: 1;"><rect width="106.66666666666666" id="phrase6" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">Hidden Dragon Sequel</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">3</text></g><g class="bar" transform="translate(0,344)" style="fill-opacity: 1;"><rect width="71.11111111111111" id="phrase11" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">more</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">2</text></g><g class="bar" transform="translate(0,251)" style="fill-opacity: 1;"><rect width="71.11111111111111" id="phrase8" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">morning person</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">2</text></g><g class="bar" transform="translate(0,375)" style="fill-opacity: 1;"><rect width="71.11111111111111" id="phrase12" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">snacks</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">2</text></g><g class="bar" transform="translate(0,406)" style="fill-opacity: 1;"><rect width="35.55555555555556" id="phrase13" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">good idea</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">1</text></g><g class="bar" transform="translate(0,437)" style="fill-opacity: 1;"><rect width="35.55555555555556" id="phrase14" height="29"/><text class="name" x="5" y="14.5" dy=".35em" text-anchor="start">only time</text><text class="value" x="288" y="14.5" dy=".35em" text-anchor="start">1</text></g>
+                                </svg> -->
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- end of second row -->
+            </div> <!-- end of large-9 columns -->
+            <!-- stream -->
+             <!-- end of stream div -->
+        </div>
+   
+        <script src="../lib/brandPulseStreamOO.js"></script> 
+        <script src="./lib/horizontalBarChart.js"></script>
+        <script src="./lib/emerging_topics.js"></script> 
+        <script src="../lib/datacall.js"></script>
+    
+      	</body>
+</html>

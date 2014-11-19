@@ -1,18 +1,21 @@
-/*
 .areaNEG {
-  	fill: #FF4136;
-}
-.areaPOS {
-  	fill: #29b739;
-}
-.area.above {
-    fill: #83c94c;
-}
-.area.below {
-    fill: rgb(252,141,89);
-    
-}
-*/
+          fill: #FF4136;
+        }
+        .areaPOS {
+          fill: #29b739;
+        }
+        .area.above {
+            /* fill: rgb(145,207,96); 
+            fill: rgb(252,141,89); */
+            fill: #83c94c;
+        }
+
+        .area.below {
+            fill: rgb(252,141,89);
+            /* fill: transparent; */
+            /* fill: rgb(145,207,96);*/
+            
+        }
 .horizontalGrid {
         /* stroke:white; */
         stroke: #1f1f1f;
@@ -865,23 +868,21 @@ news ticker
 	}
 	
 } 
-/*
-.areaNEG {
-  fill: #FF4136;
-}
-.areaPOS {
-  fill: #29b739;
-}
-*/
 
-/*
-.area.above {
-    fill: #83c94c;
-}
-.area.below {
-    fill: rgb(252,141,89);
-}
-*/
+            .areaNEG {
+              fill: #FF4136;
+            }
+            .areaPOS {
+              fill: #29b739;
+            }
+            .area.above {
+                fill: #83c94c;
+            }
+
+            .area.below {
+                fill: rgb(252,141,89);
+                
+            }
 
             .spinner {
               position: absolute;

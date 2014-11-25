@@ -1,0 +1,301 @@
+<!--<!DOCTYPE html>-->
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <!-- <meta charset="ISO-8859-1" /> -->
+        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Competitor Pulse </title>
+        <!-- JS -->
+        <script type="text/javascript" src="../../../lib/d3.v3/d3.v3.min.js"></script>
+        <script type="text/javascript" src="../../../lib/twitter-text-1.9.4.min.js"></script>
+        <script type="text/javascript" src="../../../lib/countUp.js-master/countUp.min.js"></script>
+        <script type="text/javascript" src="../../../lib/jquery/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="../../../lib/underscore/underscore.min.js"></script>
+        <script type="text/javascript" src="../../../lib/moment.min.js"></script>
+        <script type="text/javascript" src="../../../lib/jquery/jquery.ui.core.js"></script>
+        <script type="text/javascript" src="../../../lib/jquery/jquery.ui.widget.js"></script>
+        <script type="text/javascript" src="../../../lib/jquery/jquery.fiji.ticker.js"></script>
+        <script type="text/javascript" src="../../../lib/jquery/jquery.browser.js"></script>
+        <script type="text/javascript" src="//platform.twitter.com/widgets.js"></script>
+        <script type="text/javascript" src="../../../lib/topojson.v1.min.js"></script>
+
+        <script src="main.js"></script>
+        <!--
+        <link href="../../../lib/foundation-5.0.2/css/foundation.min.css" rel="stylesheet">
+        -->
+        <link href="../../../lib/foundation-5.0.2/css/foundation.css" rel="stylesheet">
+	    <link href="./lib/style.css" rel="stylesheet">
+        <link href="../../../lib/font-awesome-4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="../../../assets/js/html5shiv.js"></script>
+          <script src="../../../assets/js/respond.min.js"></script>
+        <![endif]-->
+        <style type="text/css">
+            .spinner {
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin:auto;
+              width: 30px;
+              height: 30px;
+              background: #1abc9c;
+              border-radius: 100%;
+              box-shadow: 
+                -16px 28px 0px #d35400,
+                18px 28px 0px #3498db;
+              /* spin that shit */
+              -webkit-animation:spin .3s linear infinite;
+            }
+
+            @-webkit-keyframes spin {
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+            @keyframes spin {
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+
+            .horizontalGrid {
+                /* stroke:white; */
+                stroke: #1f1f1f;
+                stroke-width:2px;
+                /* stroke-width:3px; */
+            }
+            #gridlineID_0 {
+                stroke:transparent;
+            }
+
+            /* map stuff */
+            .subunit-boundary {
+                fill: none;
+                stroke: #1f1f1f;
+            }
+
+            .subunit-label {
+                fill: #777;
+                fill-opacity: .5;
+                font-size: 20px;
+                font-weight: 300;
+                text-anchor: middle;
+            }
+
+            a.displayNameLink {
+                text-decoration:none;
+                color:lightgrey;
+            }
+            a.timeagoTweetText {
+                /* text-decoration:none; */
+                color:lightgrey;
+            }
+            a.twitterUsername, a.tweet-url.username {
+                color:lightgrey;
+            }
+            a.displayNameLink:hover, a.timeagoTweetText:hover, a.twitterUsername:hover, a.tweet-url.username:hover {
+                color: #7fdbff; }
+
+            .iconHoverDiv {
+                position:absolute;
+                bottom:0px;
+                left:-64px;
+                /* top:-30px; */
+            }
+            .allIcons {
+                /* display:none; */
+                z-index: 30;
+                /* height:20px; */
+            }
+            .center-header-logo { 
+                margin-top: 20px;
+                margin-bottom: 10px;
+
+                display:block;
+                margin-left: auto;
+                margin-right: auto;
+                /* height:80px; */
+                height:50px;
+            }
+            /*
+            .area.above {
+                fill: #83c94c;
+            }
+            .area.below {
+                fill: rgb(252,141,89);
+            }
+            */
+            .vis-title-container {
+                margin-bottom:5px;
+            }
+            .total-main-number-container {
+                margin-top:0px;
+            }
+            .total-main-number {
+                line-height: 1;
+            }
+            .row.scrunch-width { 
+                width: 80%; 
+                max-width: 80%; 
+            }
+            .vis-header {
+                font-size: 88%;
+            }
+            .vis-header-time {
+                font-size: 88%;
+            }
+
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript" src="../../../lib/foundation-5.0.2/js/foundation.min.js"></script>
+        <script type="text/javascript" src="../../../lib/foundation-5.0.2/js/foundation/foundation.reveal.js"></script>
+    
+        <div class="row full-width">            
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <img class="center-header-logo" alt="logo" src="./lib/walmart.png" />
+                <div class="vis-title-container"><span class="vis-header"> Emerging Terms</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="walmart_emerging"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <img class="center-header-logo" alt="logo" src="./lib/amazon.png" />
+                <div class="vis-title-container"><span class="vis-header"> Emerging Terms</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="amazon_emerging"></div>
+            </div>
+            
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <!-- <img class="center-header-logo" alt="logo" src="./lib/image005.png" /> -->
+                <img class="center-header-logo" alt="logo" src="./lib/jcpenny.png" />
+                <div class="vis-title-container"><span class="vis-header"> Emerging Terms</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="jcp_emerging"></div>
+            </div>
+            
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <img class="center-header-logo" alt="logo" src="./lib/macys.png" />
+                <div class="vis-title-container"><span class="vis-header"> Emerging Terms</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="macys_emerging"></div>
+            </div>
+            
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <!-- <img class="center-header-logo" alt="logo" src="./lib/image004.png" /> -->
+                <img class="center-header-logo" alt="logo" src="./lib/kohls.png" />
+                <div class="vis-title-container"><span class="vis-header"> Emerging Terms</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="kohls_emerging"></div>
+            </div>  
+        </div>        
+        
+        <div class="row full-width">    
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Mentions</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="walmart_mentions"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Mentions</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="amazon_mentions"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Mentions</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="jcp_mentions"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Mentions</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="macys_mentions"></div>
+            </div>
+            
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Mentions</span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="kohls_mentions"></div>
+            </div>
+        </div>
+        <!--
+        <div class="row full-width">    
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Impressions </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="walmart_impressions"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Impressions </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="amazon_impressions"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Impressions </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="bestbuy_impressions"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Impressions </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="target_impressions"></div>
+            </div>
+            
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Impressions </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="toysrus_impressions"></div>
+            </div>
+        </div>
+        -->
+        <div class="row full-width">    
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Net Sentiment </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="walmart_sentiment"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Net Sentiment </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="amazon_sentiment"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Net Sentiment </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="jcp_sentiment"></div>
+            </div>
+
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Net Sentiment </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="macys_sentiment"></div>
+            </div>
+            
+            <div class="small-2pt4 medium-2pt4 large-2pt4 columns">
+                <div class="vis-title-container"><span class="vis-header"> Net Sentiment </span><span class="vis-header-time"> (last hour) </span></div>
+                <div id="kohls_sentiment"></div>
+            </div>
+        </div>
+        
+        <script type="text/javascript">
+            $(document).ready(function() {
+                emergingTopics.init("walmart_emerging", "29ae60e3-d4ba-40f0-b833-d43153e26af5");
+                mentionsWidget.init("walmart_mentions", "29ae60e3-d4ba-40f0-b833-d43153e26af5");
+                netSentiment.init("walmart_sentiment", "29ae60e3-d4ba-40f0-b833-d43153e26af5");
+                
+                emergingTopics.init("amazon_emerging", "2d3613c6-3129-446f-be28-f44b65e122c5");
+                mentionsWidget.init("amazon_mentions", "2d3613c6-3129-446f-be28-f44b65e122c5");
+                netSentiment.init("amazon_sentiment", "2d3613c6-3129-446f-be28-f44b65e122c5");
+
+                emergingTopics.init("jcp_emerging", "050f20d8-5a76-4b63-940f-5398d3e74063");
+                mentionsWidget.init("jcp_mentions", "050f20d8-5a76-4b63-940f-5398d3e74063");
+                netSentiment.init("jcp_sentiment", "050f20d8-5a76-4b63-940f-5398d3e74063");
+                
+                emergingTopics.init("macys_emerging", "96cc79ce-40c6-4797-958e-a86f8a6d2941");
+                mentionsWidget.init("macys_mentions", "96cc79ce-40c6-4797-958e-a86f8a6d2941");
+                netSentiment.init("macys_sentiment", "96cc79ce-40c6-4797-958e-a86f8a6d2941");
+
+                emergingTopics.init("kohls_emerging", "10e6ee18-aea7-4c2a-bb82-ab1659fe2a31");
+                mentionsWidget.init("kohls_mentions", "10e6ee18-aea7-4c2a-bb82-ab1659fe2a31");
+                netSentiment.init("kohls_sentiment", "10e6ee18-aea7-4c2a-bb82-ab1659fe2a31"); 
+                
+            });
+        </script>        
+        
+    </body>
+</html>
